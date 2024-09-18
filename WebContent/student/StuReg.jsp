@@ -7,7 +7,7 @@
 <title>Include Sample</title>
 </head>
 <body>
-<%@include file="util/frame.jsp"%>
+<%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 
 <p><input type="submit" value="CSVファイルを読み込む"></p>
