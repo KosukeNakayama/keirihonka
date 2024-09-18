@@ -14,7 +14,7 @@
 	</div>
 	<div class="list-5">
 		<div class="menu-item">
-          <img class="arrow-drop-down" src="static/img/down_triangle.png" />
+          <img class="arrow-drop-down" src="../static/img/down_triangle.png" />
           クラス管理
         </div>
         <li><a href="">クラス登録</a></li>
@@ -24,7 +24,7 @@
 	</div>
 	<div class="list-3">
 		<div class="menu-item">
-			<img class="arrow-drop-down" src="static/img/down_triangle.png" />
+			<img class="arrow-drop-down" src="../static/img/down_triangle.png" />
 			休日設定
 		</div>
 		<li><a href="">休日設定</a></li>
@@ -32,15 +32,16 @@
 	<h3>一般職メニュー</h3>
 	<div class="list-2">
 		<div class="menu-item">
-			<img class="arrow-drop-down" src="static/img/down_triangle.png" />
+			<img class="arrow-drop-down" src="../static/img/down_triangle.png" />
 			出欠
 		</div>
-		<li><a href="">出欠入力(当日)</a></li>
+		<li><a href="/keirihonka/attend/attReg.jsp">出欠入力(当日)</a></li>
 		<li><a href="">出欠更新</a></li>
+		<li><a href="/keirihonka/attend/seatSet.jsp">座席情報設定</a></li>
 	</div>
 	<div class="list">
 		<div class="menu-item">
-			<img class="arrow-drop-down" src="static/img/down_triangle.png" />
+			<img class="arrow-drop-down" src="../static/img/down_triangle.png" />
 			成績
 		</div>
 		<li><a href="">成績入力</a></li>
