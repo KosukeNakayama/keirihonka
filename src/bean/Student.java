@@ -1,6 +1,6 @@
 package bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 //学生情報
 public class Student implements java.io.Serializable {

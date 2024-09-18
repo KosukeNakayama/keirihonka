@@ -1,6 +1,6 @@
 package bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 //クラス履歴情報
 public class ClassHistory  implements java.io.Serializable {
