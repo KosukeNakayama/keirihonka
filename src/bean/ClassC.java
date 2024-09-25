@@ -13,7 +13,7 @@ public class ClassC implements java.io.Serializable {
     private Date startDate;
     private Date endDate;
 
-	private String className;
+//	private String className;
 
 	public int getClassId() {
 		return classId;
@@ -80,7 +80,7 @@ public class ClassC implements java.io.Serializable {
 	}
 
 	public String getClassName() {
-		return className;
+//		return className;
 	}
 
 

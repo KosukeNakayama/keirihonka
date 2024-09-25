@@ -11,9 +11,9 @@ public class StudentExp implements java.io.Serializable {
     private ClassC classC;
     private Course course;
 
-    private double sumOfAttendance;
-    private double sumOfAttendanceAtMonth;
-    private String disposal;
+//    private double sumOfAttendance;
+//    private double sumOfAttendanceAtMonth;
+//    private String disposal;
 
 	public ArrayList<Score> getScoreList() {
 		return scoreList;
@@ -46,13 +46,13 @@ public class StudentExp implements java.io.Serializable {
 		this.course = course;
 	}
 	public double getSumOfAttendance() {
-		return sumOfAttendance;
+//		return sumOfAttendance;
 	}
 	public double getSumOfAttendanceAtMonth() {
-		return sumOfAttendanceAtMonth;
+//		return sumOfAttendanceAtMonth;
 	}
 	public String getDisposal() {
-		return disposal;
+//		return disposal;
 	}
 
 }
