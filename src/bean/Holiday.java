@@ -1,6 +1,6 @@
 package bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 //休日情報
 public class Holiday implements java.io.Serializable {

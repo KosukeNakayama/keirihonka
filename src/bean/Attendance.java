@@ -1,6 +1,6 @@
 package bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 //出欠情報
 public class Attendance implements java.io.Serializable {
