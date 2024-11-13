@@ -11,7 +11,7 @@ public class Subject implements java.io.Serializable {
     private int classNum;
     private boolean isFirstHalf;
 
-    private int UnitTime;
+    private int unitTime;
 
 	public int getSubjectId() {
 		return subjectId;
@@ -69,8 +69,10 @@ public class Subject implements java.io.Serializable {
 		this.isFirstHalf = isFirstHalf;
 	}
 
+	//	科目の「単位時間」を変えす
 	public int getUnitTime() {
-		return UnitTime;
+		unitTime = classNum * 2;
+		return unitTime;
 	}
 
 
