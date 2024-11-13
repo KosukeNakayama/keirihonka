@@ -1,11 +1,11 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import bean.Student;
@@ -23,13 +23,17 @@ public class Dao {
 	 * @throws Exception
 	 */
 	public Connection getConnection() throws Exception {
-		// データソースがnullの場合
-		if (ds == null) {
-			InitialContext ic=new InitialContext();
-			DataSource ds=(DataSource)ic.lookup("java:/comp/env/jdbc/keirihonka");
-		}
-		// データベースへのコネクションを返却
-		return ds.getConnection();
+		// データベースのURL
+        final String URL = "jdbc:postgresql://localhost:5432/keirihonka";
+        // データベースにアクセスするユーザー
+        final String USER = "postgres";
+        // パスワード
+        final String PASSWORD = "postgres";
+
+        Class.forName("org.postgresql.Driver");
+        // データベースへ接続する
+        Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+        return con;
 	}
 
 	/**
