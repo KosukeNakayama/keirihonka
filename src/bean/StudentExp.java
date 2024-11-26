@@ -3,7 +3,7 @@ package bean;
 import java.util.ArrayList;
 
 //学生情報
-public class StudentExp implements java.io.Serializable {
+public class StudentExp extends Student implements java.io.Serializable {
 
 	private ArrayList<Score> scoreList;
     private ArrayList<Attendance> attendanceList;
