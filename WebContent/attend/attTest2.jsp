@@ -55,24 +55,24 @@ String req = "";
 
 <table id="seats">
 <tr>
-	<td class="js-modalInput" namwe="att" data-modal="att"></td>
-	<td class="js-modalInput" namwe="att" data-modal="att"></td>
-	<td class="js-modalInput" namwe="att" data-modal="att"></td>
+	<td class="js-modalInput" name="att" data-modal="att"></td>
+	<td class="js-modalInput" name="att" data-modal="att"></td>
+	<td class="js-modalInput" name="att" data-modal="att"></td>
 </tr>
 <tr>
-	<td class="js-modalInput" namwe="att" data-modal="att"></td>
-	<td class="js-modalInput" namwe="att" data-modal="att"></td>
-	<td class="js-modalInput" namwe="att" data-modal="att"></td>
+	<td class="js-modalInput" name="att" data-modal="att"></td>
+	<td class="js-modalInput" name="att" data-modal="att"></td>
+	<td class="js-modalInput" name="att" data-modal="att"></td>
 </tr>
 <tr>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="大原 太郎">大原 太郎</td>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="大原 二郎">大原 二郎</td>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="大原 花子">大原 花子</td>
+	<td class="js-modalInput" name="att" data-modal="att" value="大原 太郎">大原 太郎</td>
+	<td class="js-modalInput" name="att" data-modal="att" value="大原 二郎">大原 二郎</td>
+	<td class="js-modalInput" name="att" data-modal="att" value="大原 花子">大原 花子</td>
 </tr>
 <tr>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 太郎">札幌 寿限無寿限無</td>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 二郎">札幌 二郎</td>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 花子">札幌 花子</td>
+	<td class="js-modalInput" name="att" data-modal="att" value="札幌 太郎">札幌 寿限無寿限無</td>
+	<td class="js-modalInput" name="att" data-modal="att" value="札幌 二郎">札幌 二郎</td>
+	<td class="js-modalInput" name="att" data-modal="att" value="札幌 花子">札幌 花子</td>
 </tr>
 </table>
 
@@ -84,24 +84,22 @@ String req = "";
 	<label><input type="radio" name="a" value="2">遅刻　<span style="color: yellow">■</span></label>
 	<label><input type="radio" name="a" value="3">早退　<span style="color: violet">■</span></label>
 	<label><input type="radio" name="a" value="4">他欠　<span style="color: greenyellow">■</span></label>
+	<label><input type="radio" name="a" value="5">遅刻欠席　<span style="color: #db8449">■</span></label>
 	<!--<label>コメント<textarea name="comment" placeholder="コメントを入力"></textarea></label>-->
 	<label>コメント<input type="text" name="comment" placeholder="コメントを入力"></label>
 	<label><button>セット</button></label>
 	</div>
-	</div>
+</div>
 
 <br><br>
 <form method="POST" action="attTest3.jsp">
 <table id="platform">
-	<tr><td>教壇</td></tr>
+	<tr><td>教卓</td></tr>
 </table>
 
-	<input type="submit" value="登録"></input>
+<input type="submit" value="登録"></input>
 </form>
 <script src="../static/js/attReg.js"></script>
 </body>
 </html>
 
-
-</body>
-</html>

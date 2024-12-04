@@ -12,7 +12,7 @@
 
     document.querySelectorAll('.js-modal input').forEach( (el) => {
         // el.addEventListener('submit', (ev) => {
-        el.addEventListener('change', (ev) => {        
+        el.addEventListener('change', (ev) => {
         // el.addEventListener('click', (ev) => {
             // trgEl.value = el.value
 
@@ -22,6 +22,7 @@
                 case "2": trgEl.style.backgroundColor='yellow'; break;          //遅刻
                 case "3": trgEl.style.backgroundColor='violet'; break;          //早退
                 case "4": trgEl.style.backgroundColor='greenyellow'; break;     //他欠
+                case "5": trgEl.style.backgroundColor='#db8449'; break;    		//遅刻早退
             }
 
             document.getElementById('js-overlay').classList.remove('is-show')

@@ -11,9 +11,9 @@ public class StudentExp implements java.io.Serializable {
     private ClassC classC;
     private Course course;
 
-//    private double sumOfAttendance;
-//    private double sumOfAttendanceAtMonth;
-//    private String disposal;
+    private double sumOfAttendance;
+    private double sumOfAttendanceAtMonth;
+    private String disposal;
 
 	public ArrayList<Score> getScoreList() {
 		return scoreList;
@@ -21,38 +21,66 @@ public class StudentExp implements java.io.Serializable {
 	public void setScoreList(ArrayList<Score> scoreList) {
 		this.scoreList = scoreList;
 	}
+
 	public ArrayList<Attendance> getAttendanceList() {
 		return attendanceList;
 	}
+
 	public void setAttendanceList(ArrayList<Attendance> attendanceList) {
 		this.attendanceList = attendanceList;
 	}
+
 	public ArrayList<ClassHistory> getClassHistoryList() {
 		return classHistoryList;
 	}
+
 	public void setClassHistoryList(ArrayList<ClassHistory> classHistoryList) {
 		this.classHistoryList = classHistoryList;
 	}
+
 	public ClassC getClassC() {
 		return classC;
 	}
+
 	public void setClassC(ClassC classC) {
 		this.classC = classC;
 	}
+
 	public Course getCourse() {
 		return course;
 	}
+
 	public void setCourse(Course course) {
 		this.course = course;
 	}
+
+	//	出欠の総累計を返す
 	public double getSumOfAttendance() {
-//		return sumOfAttendance;
+
+		return sumOfAttendance;
 	}
+
+	//	当月の出欠の累計を返す
 	public double getSumOfAttendanceAtMonth() {
-//		return sumOfAttendanceAtMonth;
+
+		return sumOfAttendanceAtMonth;
 	}
+
+	//	処分名称を返す
 	public String getDisposal() {
-//		return disposal;
+		double  sumOfAttendance = getSumOfAttendance();
+
+		if (20 <= sumOfAttendance && sumOfAttendance < 40) {
+			disposal = "訓告";
+		} else  if (40 <= sumOfAttendance && sumOfAttendance < 60) {
+			disposal = "戒告";
+		} else  if (60 <= sumOfAttendance && sumOfAttendance < 80) {
+			disposal = "再戒告";
+		} else if (80 <= sumOfAttendance) {
+			disposal = "退学戒告";
+		}
+
+		return disposal;
 	}
 
 }
