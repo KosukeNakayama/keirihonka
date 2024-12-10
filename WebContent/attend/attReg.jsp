@@ -37,7 +37,7 @@
 	<td class="js-modalInput" namwe="att" data-modal="att" value="大原 花子">大原 花子</td>
 </tr>
 <tr>
-	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 太郎">札幌 寿限無寿限無</td>
+	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 太郎">札幌 寿限無</td>
 	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 二郎">札幌 二郎</td>
 	<td class="js-modalInput" namwe="att" data-modal="att" value="札幌 花子">札幌 花子</td>
 </tr>
@@ -51,6 +51,7 @@
 	<label><input type="radio" name="a" value="2">遅刻　<span style="color: yellow">■</span></label>
 	<label><input type="radio" name="a" value="3">早退　<span style="color: violet">■</span></label>
 	<label><input type="radio" name="a" value="4">他欠　<span style="color: greenyellow">■</span></label>
+	<label><input type="radio" name="a" value="5">遅刻欠席　<span style="color: #db8449">■</span></label>
 	<!--<label>コメント<textarea name="comment" placeholder="コメントを入力"></textarea></label>-->
 	<label>コメント<input type="text" name="comment" placeholder="コメントを入力"></label>
 	<label><button>登録</button></label>
