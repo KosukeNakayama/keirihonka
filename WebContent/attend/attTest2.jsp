@@ -89,7 +89,7 @@ String req = "";
 	<label>コメント<input type="text" name="comment" placeholder="コメントを入力"></label>
 	<label><button>セット</button></label>
 	</div>
-	</div>
+</div>
 
 <br><br>
 <form method="POST" action="attTest3.jsp">
@@ -97,10 +97,8 @@ String req = "";
 	<tr><td>教卓</td></tr>
 </table>
 
-	<input type="submit" value="登録"></input>
+<input type="submit" value="登録"></input>
 </form>
 <script src="../static/js/attReg.js"></script>
 </body>
 </html>
-
-

@@ -46,7 +46,6 @@
 %>
 </select>
 
-
 <label>座席配置（横）</label>
 <select name="seatCol">
 <%
@@ -62,7 +61,6 @@
 	}
 %>
 </select>
-
 </form>
 
 <br><br>
