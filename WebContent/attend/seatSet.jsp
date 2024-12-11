@@ -18,11 +18,7 @@
 <!-- コメント追加 -->
 <form method="POST" action="SeatSetDsp">
 
-<<<<<<< HEAD
 <!-- DBから取得 -->
-=======
-<!-- 後程DBから取得 -->
->>>>>>> branch 'master' of https://github.com/KosukeNakayama/keirihonka.git
 <label>クラス</label>
 <select name="classC">
 	<option value="" selected>--選択--</option>

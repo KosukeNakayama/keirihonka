@@ -37,7 +37,7 @@ public class SeatSet extends HttpServlet {
 		}
 
 		//表示画面呼び出し
-		request.getRequestDispatcher("/attend/seatSet.jsp")
+		request.getRequestDispatcher(" attend/seatSet.jsp")
 			.forward(request, response);
 	}
 
