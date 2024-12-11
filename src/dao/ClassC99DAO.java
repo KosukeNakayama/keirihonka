@@ -1,3 +1,5 @@
+//小川動作確認用DAO
+
 package dao;
 
 import java.sql.Connection;
