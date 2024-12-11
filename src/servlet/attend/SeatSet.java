@@ -30,14 +30,14 @@ public class SeatSet extends HttpServlet {
 			List<ClassC> list = dao.selectAll(date);
 
 			//クラスリストのrequest作成
-			request.setAttribute("list", list);
+			request.setAttribute("classList", list);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		//表示画面呼び出し
-		request.getRequestDispatcher(" attend/seatSet.jsp")
+		request.getRequestDispatcher("/attend/seatSet.jsp")
 			.forward(request, response);
 	}
 

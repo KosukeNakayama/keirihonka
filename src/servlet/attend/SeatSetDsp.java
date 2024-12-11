@@ -20,27 +20,37 @@ public class SeatSetDsp extends HttpServlet {
 			HttpServletRequest request, HttpServletResponse response
 		) throws ServletException, IOException {
 
-			//POSTされたクラス名を取得
-			String className = request.getParameter("className");
+		//POSTされ値を取得
+		String className = request.getParameter("className");
+		int seatRow = Integer.parseInt(request.getParameter("seatRow"));
+		int seatCol = Integer.parseInt(request.getParameter("seatCol"));
+		System.out.println("className:" + className + " seatRow:" + seatRow+ " seatCol:" + seatCol);
 
-			//クラス名をgradeとclassNoに分解
-			int endIndex = className.lastIndexOf('-');
-			int grade = Integer.parseInt(className.substring(0, endIndex));
-			int classNo = Integer.parseInt(className.substring(endIndex + 1));
+		//ヘッダー部登録
+		SeatHeader sh = new SeatHeader();
+		sh.setClassName(className);
+		sh.setSeatRow(seatRow);
+		sh.setSeatCol(seatCol);
+		request.setAttribute("seatHeader", sh);
 
-			//今年度取得用当日日付
-		    Calendar calendar = Calendar.getInstance();
-		    Date date = calendar.getTime();
+		//クラス名をgradeとclassNoに分解
+		int endIndex = className.lastIndexOf('-');
+		int grade = Integer.parseInt(className.substring(0, endIndex));
+		int classNo = Integer.parseInt(className.substring(endIndex + 1));
 
-			try {
-				ClassC99DAO classDao = new ClassC99DAO();
-				List<StudentExp> stu = classDao.searchByNo(grade, classNo, date);
+		//今年度取得用当日日付
+		Calendar calendar = Calendar.getInstance();
+		Date date = calendar.getTime();
 
-				request.setAttribute("student", stu);
+		try {
+			ClassC99DAO classDao = new ClassC99DAO();
+			List<StudentExp> stu = classDao.searchByNo(grade, classNo, date);
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			request.setAttribute("stuList", stu);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		request.getRequestDispatcher("/attend/seatSetDsp.jsp")
 			.forward(request, response);

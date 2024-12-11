@@ -47,16 +47,11 @@ public class ClassC99DAO extends Dao {
 
 	public List<StudentExp> searchByNo(int grade, int classNo, Date date) throws Exception {
 
-		System.out.println("grade99:" + grade);
-		System.out.println("classNo99:" + classNo);
-		System.out.println("date99:" + date);
-
 		List<StudentExp> list=new ArrayList<>();
 		Connection con=getConnection();
 
 		//今年度を取得
 		int inputSchoolYear = returnSchoolYear(date);
-		System.out.println("schoolYear:" + inputSchoolYear);
 
 		//対象クラス学生一覧取得
 		PreparedStatement st=con.prepareStatement(
