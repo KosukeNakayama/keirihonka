@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.ClassC;
+import bean.StudentExp;
 import dao.ClassC99DAO;
 
 @WebServlet(urlPatterns={"/servlet/attend/SeatSetDsp"})
@@ -34,7 +34,7 @@ public class SeatSetDsp extends HttpServlet {
 
 			try {
 				ClassC99DAO classDao = new ClassC99DAO();
-				ClassC99DAO stu = classDao.searchByNo(grade, classNo, date);
+				List<StudentExp> stu = classDao.searchByNo(grade, classNo, date);
 
 				request.setAttribute("student", stu);
 
@@ -42,15 +42,13 @@ public class SeatSetDsp extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			request.getRequestDispatcher("/chap20/mondai13disp.jsp")
-				.forward(request, response);
-		}
-		request.getRequestDispatcher("/attend/seatSet.jsp")
+		request.getRequestDispatcher("/attend/seatSetDsp.jsp")
 			.forward(request, response);
+
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 		doPost(request, response);
-}
+	}
 }

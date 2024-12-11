@@ -102,4 +102,3 @@ String req = "";
 <script src="../static/js/attReg.js"></script>
 </body>
 </html>
-

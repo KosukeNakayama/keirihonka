@@ -18,7 +18,7 @@
 <!-- コメント追加 -->
 <form method="POST" action="SeatSetDsp">
 
-<!-- 後程DBから取得 -->
+<!-- DBから取得 -->
 <label>クラス</label>
 <select name="classC">
 	<option value="" selected>--選択--</option>
