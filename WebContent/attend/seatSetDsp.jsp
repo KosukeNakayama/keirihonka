@@ -14,6 +14,9 @@ int maxCol = sh.getSeatCol();
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-store">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
 <title>座席情報設定</title>
 </head>
 <body>
@@ -28,7 +31,7 @@ int maxCol = sh.getSeatCol();
 <select name="classC" disabled>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
-<input type="button" value="選択">
+<input type="button" value="登録">
 
 <br><br>
 <div>
@@ -42,10 +45,10 @@ int maxCol = sh.getSeatCol();
 </select>
 </div>
 
-<br><br>
+<br>
 
-<div>
-<table border="1">
+<div  class="example">
+<table class="test-table" border="1">
 	<thead><th>学生番号</th><th>学生氏名</th><th>座席番号</th></thead>
 	<tbody>
 	<% for (StudentExp stu:stuList) { %>
@@ -56,11 +59,10 @@ int maxCol = sh.getSeatCol();
 	<% } %>
 	</tbody>
 </table>
-</div>
-<br><br>
 
-<div>
-<table border="1">
+<br>
+
+<table class="test-table" border="1">
 	<tbody>
 	<%
 	int numOfSeats = maxRow * maxCol;
@@ -75,7 +77,7 @@ int maxCol = sh.getSeatCol();
 		for (int j=startNo; j<startNo+maxCol; j++) {
 			System.out.println("j:"+j);
 	%>
-				<td><%= j %></td>
+				<td class="seatTable"><%= j %></td>
 
 	<% } %>
 		</tr>
@@ -85,8 +87,8 @@ int maxCol = sh.getSeatCol();
 	}
 	%>
 	</tbody>
-	<tr></tr>
-	<tr><td colspan="<%= maxCol %>">教壇</td></tr>
+	<tr><td class="space" colspan="<%= maxCol %>"></td></tr>
+	<tr><td class="platform" colspan="<%= maxCol %>">教壇</td></tr>
 </table>
 </div>
 <br><br>
