@@ -29,9 +29,9 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <!-- コメント追加 -->
 
 
-<button id="confirmBtn">登録</button>
+<!--  <button id="confirmBtn">登録</button> -->
 
-<!--  <form method="POST" action="seatSetExe"> -->
+<form method="POST" action="seatSetExe">
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
