@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="bean.StudentExp, servlet.attend.SeatHeader, java.util.List" %>
+<%@page import="bean.StudentExp, bean.ClassHistory, servlet.attend.SeatHeader" %>
+<%@page import="java.util.HashMap, java.util.Map, java.util.List, java.util.Objects"%>
 <%
 List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuList");
 
 SeatHeader sh = (SeatHeader)request.getAttribute("seatHeader");
 int maxRow = sh.getSeatRow();
 int maxCol = sh.getSeatCol();
+int numOfSeats = maxRow * maxCol;
+
+Map<String, String>studentsMap = new HashMap<String, String>();
 %>
 
 
@@ -24,14 +28,17 @@ int maxCol = sh.getSeatCol();
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
 
-<form method="POST" action="seatSetExe.jsp">
 
-<!-- 後程DBから取得 -->
+<button id="confirmBtn">登録</button>
+
+<!--  <form method="POST" action="seatSetExe"> -->
+
+<!-- Attributeから取得 -->
 <label>クラス</label>
 <select name="classC" disabled>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
-<input type="button" value="登録">
+<input type="button" id="confirmBtn" value="選択" disabled>
 
 <br><br>
 <div>
@@ -46,17 +53,19 @@ int maxCol = sh.getSeatCol();
 </div>
 
 <br>
-
 <div  class="example">
 <table class="test-table" border="1">
 	<thead><th>学生番号</th><th>学生氏名</th><th>座席番号</th></thead>
 	<tbody>
 	<% for (StudentExp stu:stuList) { %>
 		<tr>
-			<td><%=stu.getStudentId() %></td>
+			<td name="studentId"><%=stu.getStudentId() %></td>
 			<td><%=stu.getStudentName() %></td>
-			<td><input type="number" name="seatno" value="" min="1" max="9"></td></tr>
-	<% } %>
+			<td><input type="number" name="seatno" value="<%=stu.getClassHistoryList().getSeatNo() %>" min="1" max="<%=numOfSeats%>"></td></tr>
+
+	<%		studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
+			//System.out.println("seat:"+stu.getClassHistoryList().getSeatNo()+" stu:"+stu.getStudentName());
+	 } %>
 	</tbody>
 </table>
 
@@ -65,25 +74,34 @@ int maxCol = sh.getSeatCol();
 <table class="test-table" border="1">
 	<tbody>
 	<%
-	int numOfSeats = maxRow * maxCol;
-	System.out.println("maxRow:"+maxRow+" maxCol:"+maxCol+" NofS:"+numOfSeats);
+	//int numOfSeats = maxRow * maxCol;
+	//System.out.println("maxRow:"+maxRow+" maxCol:"+maxCol+" NofS:"+numOfSeats);
 
 	int startNo = numOfSeats - maxCol + 1;
-	System.out.println("startNo:"+startNo);
 
 	for (int i=1; i<=maxRow; i++) {
 	%>	<tr> <%
-		System.out.println("i:"+i);
+//		System.out.println("i:"+i);
 		for (int j=startNo; j<startNo+maxCol; j++) {
-			System.out.println("j:"+j);
 	%>
-				<td class="seatTable"><%= j %></td>
+			<td class="seatTable">
+	<%
+			String stringJ = String.valueOf(j);
+			if(Objects.isNull(studentsMap.get(stringJ))) {
+				out.print(j);
+			} else {
+				int endIndex = studentsMap.get(stringJ).lastIndexOf(' ');
+				String lastName = studentsMap.get(stringJ).substring(0, endIndex);
+				String firstName = studentsMap.get(stringJ).substring(endIndex + 1);
+				out.print(lastName + "<br>" + firstName);
+			}
+	%>		</td>
 
 	<% } %>
 		</tr>
 	<%
 		startNo -= maxCol;
-		System.out.println("startNo:"+startNo+" maxRow:"+maxRow);
+//		System.out.println("startNo:"+startNo+" maxRow:"+maxRow);
 	}
 	%>
 	</tbody>
@@ -91,8 +109,9 @@ int maxCol = sh.getSeatCol();
 	<tr><td class="platform" colspan="<%= maxCol %>">教壇</td></tr>
 </table>
 </div>
-<br><br>
+<br>
 <a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
 </form>
+<script src="../../static/js/seatConfirm.js"></script>
 </body>
 </html>

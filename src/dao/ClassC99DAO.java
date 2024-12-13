@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import bean.ClassC;
+import bean.ClassHistory;
 import bean.StudentExp;
 
 public class ClassC99DAO extends Dao {
@@ -57,7 +58,7 @@ public class ClassC99DAO extends Dao {
 
 		//対象クラス学生一覧取得
 		PreparedStatement st=con.prepareStatement(
-			"SELECT student.student_id, student_name FROM student "
+			"SELECT student.student_id, student_name, seat_no FROM student "
 				+ "JOIN classhistory ON student.student_id = classhistory.student_id "
 				+ "WHERE class_id = ( "
 					+"SELECT class_id FROM class "
@@ -76,12 +77,12 @@ public class ClassC99DAO extends Dao {
 			stu.setStudentId(rs.getString("student_id"));
 			stu.setStudentName(rs.getString("student_name"));
 
-//			ClassHistory ch = new ClassHistory();
-//			ch.setStudentId(rs.getString("student_id"));
-//			ch.setSeatNo(rs.getInt("seat_no"));
-//			System.out.println(ch.getSeatNo());
-//
-//			stu.setClassHistoryList(ch);
+			ClassHistory ch = new ClassHistory();
+			ch.setStudentId(rs.getString("student_id"));
+			ch.setSeatNo(rs.getInt("seat_no"));
+//			System.out.println(ch.getStudentId()+ " " +ch.getSeatNo());
+
+			stu.setClassHistoryList(ch);
 			list.add(stu);
 		}
 
@@ -103,7 +104,6 @@ public class ClassC99DAO extends Dao {
 
         //カレンダーオブジェクトから年を取得
         int schoolYear = calendar.get(Calendar.YEAR);
-//        System.out.println(schoolYear);
 
 	    return schoolYear;
 	}

@@ -26,7 +26,7 @@ public class SeatSetDsp extends HttpServlet {
 		int seatCol = Integer.parseInt(request.getParameter("seatCol"));
 		System.out.println("className:" + className + " seatRow:" + seatRow+ " seatCol:" + seatCol);
 
-		//ヘッダー部登録
+		//ヘッダー部登録（bean化した府が良い？）
 		SeatHeader sh = new SeatHeader();
 		sh.setClassName(className);
 		sh.setSeatRow(seatRow);
@@ -43,6 +43,7 @@ public class SeatSetDsp extends HttpServlet {
 		Date date = calendar.getTime();
 
 		try {
+			//学生座席情報取得
 			ClassC99DAO classDao = new ClassC99DAO();
 			List<StudentExp> stu = classDao.searchByNo(grade, classNo, date);
 
