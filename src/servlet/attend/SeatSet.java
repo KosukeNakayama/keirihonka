@@ -1,8 +1,7 @@
 package servlet.attend;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,8 +21,10 @@ public class SeatSet extends HttpServlet {
 
 		try {
 			//今年度取得用当日日付
-		    Calendar calendar = Calendar.getInstance();
-		    Date date = calendar.getTime();
+//		    Calendar calendar = Calendar.getInstance();
+//		    Date date = calendar.getTime();
+		    long miliseconds = System.currentTimeMillis();
+		    Date date = new Date(miliseconds);
 
 			// ClassC99DAO:クラス一覧取得テスト用DAO
 			ClassC99DAO dao = new ClassC99DAO();

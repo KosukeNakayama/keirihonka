@@ -21,6 +21,7 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <meta http-equiv="Cache-Control" content="no-store">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
+
 <title>座席情報設定</title>
 </head>
 <body>
@@ -29,39 +30,41 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <!-- コメント追加 -->
 
 
-<!--  <button id="confirmBtn">登録</button> -->
-
-<form method="POST" action="seatSetExe">
+<form method="POST" action="SeatSetExe"  name="seatEntryForm"  onSubmit="checkEntry()">
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
-<select name="classC" disabled>
+<select name="className" readonly>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
-<input type="button" id="confirmBtn" value="選択" disabled>
+<input type="submit" id="confirmBtn" value="選択" disabled>
 
 <br><br>
 <div>
 <label>座席配置（縦）</label>
-<select name="seatRow" disabled>
+<select name="seatRow" readonly>
 	<option value="<%= maxRow %>"><%= maxRow %></option>
 </select>
 <label>座席配置（横）</label>
-<select name="seatCol" disabled>
+<select name="seatCol" readonly>
 	<option value="<%= maxCol %>"><%= maxCol %></option>
 </select>
 </div>
 
 <br>
-<div  class="example">
+<button type="button" id="seatEntryBtn">登録</button>
+
+<div  class="setTable">
 <table class="test-table" border="1">
 	<thead><th>学生番号</th><th>学生氏名</th><th>座席番号</th></thead>
 	<tbody>
 	<% for (StudentExp stu:stuList) { %>
 		<tr>
-			<td name="studentId"><%=stu.getStudentId() %></td>
+			<td><input type="text" name="studentId" readonly value="<%=stu.getStudentId() %>"></td>
 			<td><%=stu.getStudentName() %></td>
-			<td><input type="number" name="seatno" value="<%=stu.getClassHistoryList().getSeatNo() %>" min="1" max="<%=numOfSeats%>"></td></tr>
+			<td><input type="number" name="seatNo" value="<%=stu.getClassHistoryList().getSeatNo() %>" min="1" max="<%=numOfSeats%>"></td>
+			<input type="hidden" name="classId" value="<%=stu.getClassHistoryList().getClassId() %>">
+		</tr>
 
 	<%		studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
 			//System.out.println("seat:"+stu.getClassHistoryList().getSeatNo()+" stu:"+stu.getStudentName());
@@ -90,10 +93,11 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 			if(Objects.isNull(studentsMap.get(stringJ))) {
 				out.print(j);
 			} else {
-				int endIndex = studentsMap.get(stringJ).lastIndexOf(' ');
-				String lastName = studentsMap.get(stringJ).substring(0, endIndex);
-				String firstName = studentsMap.get(stringJ).substring(endIndex + 1);
-				out.print(lastName + "<br>" + firstName);
+				//int endIndex = studentsMap.get(stringJ).lastIndexOf(' ');
+				//String lastName = studentsMap.get(stringJ).substring(0, endIndex);
+				//String firstName = studentsMap.get(stringJ).substring(endIndex + 1);
+				//out.print(stringJ + "<br>" + lastName + "<br>" + firstName);
+				out.print(stringJ + "<br>" + studentsMap.get(stringJ));
 			}
 	%>		</td>
 
