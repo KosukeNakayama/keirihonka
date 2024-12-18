@@ -1,14 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-//String classC = request.getParameter("classC");
-String[] classArray = {"1-1", "2-1", "3-1"};
-String req = "";
-%>
+<%@page import="bean.ClassC, java.util.List" %>
 
-<%@page import="bean.Course, java.util.List" %>
-<% List<Course> list = (List<Course>)request.getAttribute("list"); %>
+<% String req = ""; %>
 
 <!DOCTYPE>
 <html>
@@ -20,26 +14,22 @@ String req = "";
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
-<form method="POST" action="seatTest.jsp">
+<form method="POST" action="SeatSetDsp">
 
-<!-- 後程DBから取得 -->
+<!-- DBから取得 -->
 <label>クラス</label>
-<select name="classC">
+<select name="className">
 	<option value="" selected>--選択--</option>
-<%
-	for (int i=0; i < classArray.length; i++) {
-%>
-		<option value="<%= classArray[i] %>"><%= classArray[i] %></option>
-<%
-	}
-%>
+	<c:forEach var="classList" items="${classList}">
+		<option value="${classList.className}">${classList.className}</option>
+	</c:forEach>
 </select>
 <input type="submit" value="選択">
 
-<br><br>
+<br>
 
 <label>座席配置（縦）</label>
-<select name="seat-row">
+<select name="seatRow">
 <%
 	for (int i=3; i<10; i++) {
 		if (i == 5){
@@ -53,13 +43,12 @@ String req = "";
 	}
 %>
 </select>
-
 
 <label>座席配置（横）</label>
-<select name="seat-col">
+<select name="seatCol">
 <%
 	for (int i=3; i<10; i++) {
-		if (i == 5){
+		if (i == 4){
 			req = "selected";
 		} else {
 			req = "";
@@ -70,12 +59,12 @@ String req = "";
 	}
 %>
 </select>
-
 </form>
 
-登録完了
+<h3>登録が完了しました</h3>
+
 <br><br>
-<a href="">メニューに戻る</a>
+<a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
 
 </body>
 </html>

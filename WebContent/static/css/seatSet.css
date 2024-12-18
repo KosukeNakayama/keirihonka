@@ -25,3 +25,12 @@ td.platform {
 td.space {
 	height: 20px;
 }
+
+.noframe{
+    border: none;
+}
+
+.alert {
+    font-size: 12px;
+    color: #ff0000;
+}

@@ -23,7 +23,6 @@ public class SeatSetDsp extends HttpServlet {
 		String className = request.getParameter("className");
 		int seatRow = Integer.parseInt(request.getParameter("seatRow"));
 		int seatCol = Integer.parseInt(request.getParameter("seatCol"));
-//		System.out.println("className:" + className + " seatRow:" + seatRow+ " seatCol:" + seatCol);
 
 		//ヘッダー部登録（bean化した府が良い？）
 		SeatHeader sh = new SeatHeader();
@@ -38,8 +37,6 @@ public class SeatSetDsp extends HttpServlet {
 		int classNo = Integer.parseInt(className.substring(endIndex + 1));
 
 		//今年度取得用当日日付
-//		Calendar calendar = Calendar.getInstance();
-//		java.util.Date date = calendar.getTime();
 	    long miliseconds = System.currentTimeMillis();
 	    Date date = new Date(miliseconds);
 

@@ -84,7 +84,6 @@ public class ClassC99DAO extends Dao {
 			ch.setStudentId(rs.getString("student_id"));
 			ch.setClassId(rs.getInt("class_id"));
 			ch.setSeatNo(rs.getInt("seat_no"));
-//			System.out.println(ch.getStudentId()+ " " +ch.getSeatNo()+ " " +ch.getClassId());
 
 			stu.setClassHistoryList(ch);
 			list.add(stu);
@@ -102,22 +101,14 @@ public class ClassC99DAO extends Dao {
 		List<ClassC> list=new ArrayList<>();
 		Connection con=getConnection();
 
-		//開始日を設定
-//        Calendar calendar = Calendar.getInstance();
-//        Date startDate1 = calendar.getDate();
-									// 現在の日時を取得
+		// 現在の日時を取得
 		long ts = System.currentTimeMillis();
 		Date startDate = new Date(ts);
 		System.out.println(startDate);
 
-		//今年度クラス一覧取得
-//		PreparedStatement st = con.prepareStatement(
-//			"INSERT INTO classHistory VALUES (?, ?, ?, ?, ?);"
-//		);
-
 		try {
 
-			//今年度クラス一覧取得
+			//SeatNoをUPDATE
 			PreparedStatement st = con.prepareStatement(
 				"UPDATE classHistory SET "
 					+ "seat_no = ?, "
@@ -128,13 +119,14 @@ public class ClassC99DAO extends Dao {
 
 			for (int i=0; i<students.length; i++) {
 				System.out.println("seatNo["+i+"]:"+seatNos[i]);
-//				if (Objects.isNull(seatNos[i])) {
+
+				//searNo未入力の場合はDBにNullを設定
 				if (Objects.isNull(seatNos[i]) | seatNos[i].isEmpty()) {
 					st.setNull(1, java.sql.Types.NULL);
 				} else {
 					st.setInt(1, Integer.parseInt(seatNos[i]));
 				}
-//				st.setInt(1, seatNos[i]);
+
 				st.setDate(2, startDate);
 				st.setNull(3, java.sql.Types.NULL);
 				st.setString(4, students[i]);
@@ -148,7 +140,6 @@ public class ClassC99DAO extends Dao {
 	              System.out.println("SQL Exception:"+e) ;
 		}
 
-//		st.close();
 		con.close();
 
 		return list;

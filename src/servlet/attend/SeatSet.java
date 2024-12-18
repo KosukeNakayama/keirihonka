@@ -21,8 +21,6 @@ public class SeatSet extends HttpServlet {
 
 		try {
 			//今年度取得用当日日付
-//		    Calendar calendar = Calendar.getInstance();
-//		    Date date = calendar.getTime();
 		    long miliseconds = System.currentTimeMillis();
 		    Date date = new Date(miliseconds);
 

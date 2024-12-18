@@ -26,7 +26,7 @@
 </select>
 <input type="submit" value="選択">
 
-<br><br>
+<br>
 
 <label>座席配置（縦）</label>
 <select name="seatRow">

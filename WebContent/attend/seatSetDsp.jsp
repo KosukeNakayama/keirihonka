@@ -4,12 +4,15 @@
 <%@page import="java.util.HashMap, java.util.Map, java.util.List, java.util.Objects"%>
 <%
 List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuList");
+int stuListSize = stuList.size();
 
+//画面情報引継ぎ
 SeatHeader sh = (SeatHeader)request.getAttribute("seatHeader");
 int maxRow = sh.getSeatRow();
 int maxCol = sh.getSeatCol();
 int numOfSeats = maxRow * maxCol;
 
+//座席配置表示時にseatNo->studentNameを取得するためのMap
 Map<String, String>studentsMap = new HashMap<String, String>();
 %>
 
@@ -39,7 +42,7 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 </select>
 <input type="submit" id="confirmBtn" value="選択" disabled>
 
-<br><br>
+<br>
 <div>
 <label>座席配置（縦）</label>
 <select name="seatRow" readonly>
@@ -51,23 +54,39 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 </select>
 </div>
 
+<input type="hidden" id="numOfSeats" value="<%= numOfSeats %>">
+<span class="alert">
+<%
+if(numOfSeats < stuListSize){
+	out.println("学生数("+ stuListSize +")が座席数("+ numOfSeats +")より多くなっています");
+}
+%>
+</span>
 <br>
 <button type="button" id="seatEntryBtn">登録</button>
 
 <div  class="setTable">
-<table class="test-table" border="1">
+<table class="test-table" border="1" id="studentsTable">
 	<thead><th>学生番号</th><th>学生氏名</th><th>座席番号</th></thead>
 	<tbody>
-	<% for (StudentExp stu:stuList) { %>
+	<%
+	for (StudentExp stu:stuList) {
+		String seatNoDsp;
+		//seatNo未入力だと一括変換時に0に置き換わるので、表示時に未入力に再変換
+		if (stu.getClassHistoryList().getSeatNo()==0) {
+			seatNoDsp = "";
+		} else {
+			seatNoDsp = Integer.toString(stu.getClassHistoryList().getSeatNo());
+		}
+	%>
 		<tr>
-			<td><input type="text" name="studentId" readonly value="<%=stu.getStudentId() %>"></td>
+			<td><input type="text" name="studentId" class="noframe" readonly value="<%=stu.getStudentId() %>"></td>
 			<td><%=stu.getStudentName() %></td>
-			<td><input type="number" name="seatNo" value="<%=stu.getClassHistoryList().getSeatNo() %>" min="1" max="<%=numOfSeats%>"></td>
+			<td><input type="number" name="seatNo" value="<%=seatNoDsp %>" min="1" max="<%=numOfSeats%>"></td>
 			<input type="hidden" name="classId" value="<%=stu.getClassHistoryList().getClassId() %>">
 		</tr>
 
 	<%		studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
-			//System.out.println("seat:"+stu.getClassHistoryList().getSeatNo()+" stu:"+stu.getStudentName());
 	 } %>
 	</tbody>
 </table>
@@ -75,28 +94,21 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <br>
 
 <table class="test-table" border="1">
+	<caption><h3>変更前の座席位置</h3></caption>
 	<tbody>
 	<%
-	//int numOfSeats = maxRow * maxCol;
-	//System.out.println("maxRow:"+maxRow+" maxCol:"+maxCol+" NofS:"+numOfSeats);
-
 	int startNo = numOfSeats - maxCol + 1;
-
 	for (int i=1; i<=maxRow; i++) {
 	%>	<tr> <%
-//		System.out.println("i:"+i);
 		for (int j=startNo; j<startNo+maxCol; j++) {
 	%>
 			<td class="seatTable">
 	<%
+			//座席配置図で、表示Noに学生が登録済みの場合は氏名も表示
 			String stringJ = String.valueOf(j);
 			if(Objects.isNull(studentsMap.get(stringJ))) {
 				out.print(j);
 			} else {
-				//int endIndex = studentsMap.get(stringJ).lastIndexOf(' ');
-				//String lastName = studentsMap.get(stringJ).substring(0, endIndex);
-				//String firstName = studentsMap.get(stringJ).substring(endIndex + 1);
-				//out.print(stringJ + "<br>" + lastName + "<br>" + firstName);
 				out.print(stringJ + "<br>" + studentsMap.get(stringJ));
 			}
 	%>		</td>
@@ -105,7 +117,6 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 		</tr>
 	<%
 		startNo -= maxCol;
-//		System.out.println("startNo:"+startNo+" maxRow:"+maxRow);
 	}
 	%>
 	</tbody>
