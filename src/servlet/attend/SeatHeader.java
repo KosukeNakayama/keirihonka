@@ -22,5 +22,4 @@ public class SeatHeader {
 	public void setSeatCol(int seatCol) {
 		this.seatCol = seatCol;
 	}
-
 }
