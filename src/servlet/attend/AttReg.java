@@ -1,5 +1,48 @@
 package servlet.attend;
 
-public class AttReg {
+import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bean.ClassC;
+import dao.Attendance99DAO;
+
+@WebServlet(urlPatterns={"/servlet/attend/AttReg"})
+public class AttReg extends HttpServlet {
+	public void doPost (
+		HttpServletRequest request, HttpServletResponse response
+	) throws ServletException, IOException {
+
+		try {
+			//今年度取得用当日日付
+		    long miliseconds = System.currentTimeMillis();
+		    Date date = new Date(miliseconds);
+
+			// ClassC99DAO:クラス一覧取得テスト用DAO
+			Attendance99DAO dao = new Attendance99DAO();
+			List<ClassC> list = dao.selectAyll(studentId, date);
+
+			//クラスリストのrequest作成
+			request.setAttribute("studentList", list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//表示画面呼び出し
+		request.getRequestDispatcher("/attend/attReg.jsp")
+			.forward(request, response);
+	}
+
+	//GETメソッド用（未使用）
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+			doPost(request, response);
+	}
 }
