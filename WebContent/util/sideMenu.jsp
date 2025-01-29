@@ -35,9 +35,9 @@
 			<img class="arrow-drop-down" src="../static/img/down_triangle.png" />
 			出欠
 		</div>
-		<li><a href="/keirihonka/attend/attTest1.jsp">出欠入力(当日)</a></li>
+		<li><a href="/keirihonka/servlet/attend/AttReg">出欠入力(当日)</a></li>
 		<li><a href="">出欠更新</a></li>
-		<li><a href="/keirihonka/attend/seatTest1.jsp">座席情報設定</a></li>
+		<li><a href="/keirihonka/servlet/attend/SeatSet">座席情報設定</a></li>
 	</div>
 	<div class="list">
 		<div class="menu-item">

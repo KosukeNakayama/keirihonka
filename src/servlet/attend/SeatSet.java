@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ClassC;
-import dao.Attendance99DAO;
+import dao.ClassC99DAO;
 
-@WebServlet(urlPatterns={"/servlet/attend/AttReg"})
-public class AttReg extends HttpServlet {
+@WebServlet(urlPatterns={"/servlet/attend/SeatSet"})
+public class SeatSet extends HttpServlet {
 	public void doPost (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
@@ -25,18 +25,18 @@ public class AttReg extends HttpServlet {
 		    Date date = new Date(miliseconds);
 
 			// ClassC99DAO:クラス一覧取得テスト用DAO
-			Attendance99DAO dao = new Attendance99DAO();
-			List<ClassC> list = dao.selectAyll(studentId, date);
+			ClassC99DAO dao = new ClassC99DAO();
+			List<ClassC> list = dao.selectAll(date);
 
 			//クラスリストのrequest作成
-			request.setAttribute("studentList", list);
+			request.setAttribute("classList", list);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		//表示画面呼び出し
-		request.getRequestDispatcher("/attend/attReg.jsp")
+		request.getRequestDispatcher("/attend/seatSet.jsp")
 			.forward(request, response);
 	}
 
