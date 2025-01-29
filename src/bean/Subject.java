@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package bean;
 
 //科目情報

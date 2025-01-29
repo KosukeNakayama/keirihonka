@@ -19,7 +19,7 @@ public class Users implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public boolean isManaged() {
+	public boolean getManaged() {
 		return isManaged;
 	}
 	public void setManaged(boolean isManaged) {
