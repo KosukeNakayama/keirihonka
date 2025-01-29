@@ -1,14 +1,4 @@
 package dao;
-
-public class StudentDao extends Dao{
-
-	public int getStundetMaxId(){
-		//DBから一番大きな学生番号を取ってきて返す
-		return 1;
-	}
-}
-package dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

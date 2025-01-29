@@ -10,6 +10,20 @@
 	<form action="ScoRegCsv" method="post"
 		enctype="multipart/form-data">
 		<input type="file" name="csvFile" accept=".csv" required>
+		<select name="month" id="month">
+		<option value="1" selected >1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+	</select>
 		<button type="submit">表示</button>
 	</form>
 
@@ -27,20 +41,20 @@
 			</tr>
 		</thead>
 		<tbody>
-
-		<tbody>
 			<%
 				// サーブレットから渡されたCSV内容のリストを表示
 				List<String[]> csvData = (List<String[]>) request.getAttribute("csvData");
-
+				String month=(String)request.getAttribute("month");
 				if (csvData != null) {
 					for (String[] row : csvData) {
 						out.println("<tr>");
+						out.println("<td>"+ month+"</td>");
 						for (String column : row) {
 							out.println("<td>" + column + "</td>");
 						}
 						out.println("</tr>");
 					}
+					out.println("<p>上記データを登録できました。</p>");
 				} else {
 					out.println("<tr><td colspan='6'>No data available</td></tr>");
 				}
