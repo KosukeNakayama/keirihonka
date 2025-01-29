@@ -12,8 +12,7 @@ public class ClassC implements java.io.Serializable {
     private int horizontal;
     private Date startDate;
     private Date endDate;
-
-//	private String className;
+    private String className;
 
 	public int getClassId() {
 		return classId;
@@ -79,8 +78,11 @@ public class ClassC implements java.io.Serializable {
 		this.endDate = endDate;
 	}
 
+	//	2年2組の場合、"2-2"という文字列を返す
+
 	public String getClassName() {
-//		return className;
+		className = String.valueOf(grade) + "-" + String.valueOf(classNo);
+		return className;
 	}
 
 

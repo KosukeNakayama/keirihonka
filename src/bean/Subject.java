@@ -3,21 +3,21 @@ package bean;
 //科目情報
 public class Subject implements java.io.Serializable {
 
-	private int subjectId;;
+	private String subjectId;;
 	private String subjectName;
     private int courseId;
     private int grade;
-    private int redit;
+    private int credit;
     private int classNum;
     private boolean isFirstHalf;
 
-    private int UnitTime;
+    private int unitTime;
 
-	public int getSubjectId() {
+	public String getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
 
@@ -45,12 +45,12 @@ public class Subject implements java.io.Serializable {
 		this.grade = grade;
 	}
 
-	public int getRedit() {
-		return redit;
+	public int getCredit() {
+		return credit;
 	}
 
-	public void setRedit(int redit) {
-		this.redit = redit;
+	public void setCredit(int redit) {
+		this.credit = redit;
 	}
 
 	public int getClassNum() {
@@ -61,16 +61,18 @@ public class Subject implements java.io.Serializable {
 		this.classNum = classNum;
 	}
 
-	public boolean isFirstHalf() {
+	public boolean getisFirstHalf() {
 		return isFirstHalf;
 	}
 
-	public void setFirstHalf(boolean isFirstHalf) {
+	public void setisFirstHalf(boolean isFirstHalf) {
 		this.isFirstHalf = isFirstHalf;
 	}
 
+	//	科目の「単位時間」を変えす
 	public int getUnitTime() {
-		return UnitTime;
+		unitTime = classNum * 2;
+		return unitTime;
 	}
 
 
