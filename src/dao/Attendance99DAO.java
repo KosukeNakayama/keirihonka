@@ -9,44 +9,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.Attendance;
 import bean.ClassHistory;
 import bean.StudentExp;
 import servlet.attend.SchoolYear;
 
 public class Attendance99DAO extends Dao {
-
-	//クラス一覧取得
-	public List<Attendance> selectAll(String studentId, Date date) throws Exception {
-
-		List<Attendance> list=new ArrayList<>();
-		Connection con=getConnection();
-
-		//今年度を取得
-		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
-
-		//今年度クラス一覧取得
-		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM attendance"
-				+ " WHERE student_id = ? AND date = ?"
-				+ " ORDER BY student_id"
-		);
-		st.setString(1, studentId);;
-		st.setDate(2, date);
-		ResultSet rs=st.executeQuery();
-
-		while (rs.next()) {
-			Attendance att=new Attendance();
-			att.setStatus(rs.getString("status"));
-			att.setMemo(rs.getString("memo"));
-			list.add(att);
-		}
-
-		st.close();
-		con.close();
-
-		return list;
-	}
 
 	//座席情報取得
 	public List<StudentExp> searchByNo(int grade, int classNo, Date date) throws Exception {
@@ -92,6 +59,42 @@ public class Attendance99DAO extends Dao {
 
 		return list;
 	}
+
+
+//	//クラス一覧取得
+//	public List<Attendance> selectAll(String studentId, Date date) throws Exception {
+//
+//		List<Attendance> list=new ArrayList<>();
+//		Connection con=getConnection();
+//
+//		//今年度を取得
+//		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
+//
+//		//今年度クラス一覧取得
+//		PreparedStatement st = con.prepareStatement(
+//			"SELECT * FROM attendance"
+//				+ " WHERE student_id = ? AND date = ?"
+//				+ " ORDER BY student_id"
+//		);
+//		st.setString(1, studentId);;
+//		st.setDate(2, date);
+//		ResultSet rs=st.executeQuery();
+//
+//		while (rs.next()) {
+//			Attendance att=new Attendance();
+////			att.setStatus(rs.getString("status"));
+//			char[] c = rs.getString("status").toCharArray();
+//			att.setStatus(c[0]);
+//			att.setMemo(rs.getString("memo"));
+//			list.add(att);
+//		}
+//
+//		st.close();
+//		con.close();
+//
+//		return list;
+//	}
+
 
 //	//座席情報更新
 //	public List<ClassC> updateClassHistory(int classId, String[] students, String[] seatNos) throws Exception {

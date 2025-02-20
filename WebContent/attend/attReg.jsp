@@ -18,19 +18,18 @@
 
 <!-- DBから取得 -->
 <label>クラス</label>
-<select name="className">
+<select name="paramString">
 	<option value="" selected>--選択--</option>
-	<c:forEach var="classList" items="${studentList}">
-		<option value="${studentList.className}">${studentList.className}</option>
+	<c:forEach var="classList" items="${classList}">
+		<option value="${classList.className += ',' += classList.vertical += ',' += classList.horizontal}">${classList.className}</option>
 	</c:forEach>
 </select>
 <input type="submit" value="選択">
 
-
 </form>
 
 <br><br>
-<a href="/keirihonka/servlet/attend/AttSet">メニューに戻る</a>
+<a href="/keirihonka/servlet/attend/AttRegDsp">メニューに戻る</a>
 
 </body>
 </html>

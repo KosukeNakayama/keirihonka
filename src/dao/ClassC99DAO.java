@@ -29,7 +29,7 @@ public class ClassC99DAO extends Dao {
 
 		//今年度クラス一覧取得
 		PreparedStatement st = con.prepareStatement(
-			"SELECT grade, class_no FROM class"
+			"SELECT * FROM class"
 				+ " WHERE school_year = ?"
 				+ " ORDER BY grade, class_no"
 		);
@@ -41,7 +41,10 @@ public class ClassC99DAO extends Dao {
 			crs.setGrade(rs.getInt("grade"));
 			crs.setClassNo(rs.getInt("class_no"));
 			crs.getClassName();
+			crs.setVertical(rs.getInt("vertical"));
+			crs.setHorizontal(rs.getInt("horizontal"));
 			list.add(crs);
+//			System.out.println("class:" + crs.getClassName() + " v:" + crs.getVertical() + " h:" + crs.getHorizontal());
 		}
 
 		st.close();

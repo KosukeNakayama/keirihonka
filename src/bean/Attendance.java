@@ -7,7 +7,7 @@ public class Attendance implements java.io.Serializable {
 
 	private String studentId;
     private Date date;
-    private String status;
+    private char status;
 	private String memo;
 
 	private String statusStr;
@@ -32,7 +32,7 @@ public class Attendance implements java.io.Serializable {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(char status) {
 		this.status = status;
 	}
 
