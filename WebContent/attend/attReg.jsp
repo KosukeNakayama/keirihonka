@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="bean.ClassC, java.util.List" %>
 
@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 <title>出欠入力</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
 		<option value="${classList.className += ',' += classList.vertical += ',' += classList.horizontal}">${classList.className}</option>
 	</c:forEach>
 </select>
-<input type="submit" value="選択">
+<input type="submit" class="operation-button" value="選択">
 
 </form>
 
