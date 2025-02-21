@@ -17,6 +17,7 @@ td.seatTable {
 }
 
 td.platform {
+	background-color: #f5deb3;
 	height: 35px;
 	text-align: center;
 	vertical-align: middle;

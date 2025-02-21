@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="bean.StudentExp, bean.ClassHistory, servlet.attend.SeatHeader" %>
+<%@page import="bean.StudentExp, bean.ClassHistory, bean.ClassHistory, servlet.attend.SeatHeader" %>
 <%@page import="java.util.HashMap, java.util.Map, java.util.List, java.util.Objects"%>
 <%
 List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuList");
@@ -14,6 +14,10 @@ int numOfSeats = maxRow * maxCol;
 
 //座席配置表示時にseatNo->studentNameを取得するためのMap
 Map<String, String>studentsMap = new HashMap<String, String>();
+//座席配置表示時にseatNo->statusを取得するためのMap
+Map<String, String>statusMap = new HashMap<String, String>();
+//座席配置表示時にseatNo->memoを取得するためのMap
+Map<String, String>memoMap = new HashMap<String, String>();
 %>
 
 
@@ -62,7 +66,10 @@ for (StudentExp stu:stuList) {
 	} else {
 		seatNoDsp = Integer.toString(stu.getClassHistoryList().getSeatNo());
 	}
+
 	studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
+	statusMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), String.valueOf(stu.getAttendanceList().getStatus()));
+	memoMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getAttendanceList().getMemo());
 }
 %>
 
@@ -75,17 +82,37 @@ for (StudentExp stu:stuList) {
 	for (int i=1; i<=maxRow; i++) {
 	%>	<tr> <%
 		for (int j=startNo; j<startNo+maxCol; j++) {
+			String stringJ = String.valueOf(j);
 			String cellId = "cell" + String.format("%03d", j);
+
+			String statusColor = "";
+			switch(statusMap.get(stringJ)){
+				case "1":
+			    	statusColor = "red";
+			    	break;
+				case "2":
+				    statusColor = "yellow";
+			    	break;
+				case "3":
+				    statusColor = "violet";
+				    break;
+				case "4":
+					statusColor = "greenyellow";
+					break;
+				case "5":
+					statusColor = "orange";
+			}
 	%>
-			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>" >
+			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>" style="background-color: <% out.print(statusColor); %>">
 	<%
 			//座席配置図で、表示Noに学生が登録済みの場合は氏名も表示
-			String stringJ = String.valueOf(j);
+			//String stringJ = String.valueOf(j);
 			if(Objects.isNull(studentsMap.get(stringJ))) {
 				out.print(j);
 			} else {
 				out.print(stringJ + "<br>" + studentsMap.get(stringJ));
 			}
+
 	%>		</td>
 
 	<% } %>

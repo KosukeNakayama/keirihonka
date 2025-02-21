@@ -25,7 +25,7 @@ public class AttRegDsp extends HttpServlet {
 		String className = splitArray[0];
 		int seatRow = Integer.parseInt(splitArray[1]);
 		int seatCol = Integer.parseInt(splitArray[2]);
-//		System.out.println("class:" + className + " row:" + seatRow + " col:" + seatCol);
+		System.out.println("class:" + className + " row:" + seatRow + " col:" + seatCol);
 
 		//ヘッダー部登録（bean化した方が良い？）
 		SeatHeader sh = new SeatHeader();
@@ -50,7 +50,7 @@ public class AttRegDsp extends HttpServlet {
 		try {
 			//学生座席情報取得
 			Attendance99DAO classDao = new Attendance99DAO();
-			List<StudentExp> stu = classDao.searchByNo(grade, classNo, date);
+			List<StudentExp> stu = classDao.searchByClass(grade, classNo, date);
 
 			request.setAttribute("stuList", stu);
 
@@ -59,8 +59,7 @@ public class AttRegDsp extends HttpServlet {
 		}
 
 		request.getRequestDispatcher("/attend/attRegDsp.jsp")
-			.forward(request, response);
-
+		.forward(request, response);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

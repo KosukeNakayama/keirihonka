@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import bean.Attendance;
 import bean.ClassHistory;
 import bean.StudentExp;
 import servlet.attend.SchoolYear;
@@ -16,18 +18,22 @@ import servlet.attend.SchoolYear;
 public class Attendance99DAO extends Dao {
 
 	//座席情報取得
-	public List<StudentExp> searchByNo(int grade, int classNo, Date date) throws Exception {
+	public List<StudentExp> searchByClass(int grade, int classNo, Date date) throws Exception {
 
 		List<StudentExp> list=new ArrayList<>();
 		Connection con=getConnection();
+
+		//当日日付
+		Date today = SchoolYear.returnToday(date);
 
 		//今年度を取得
 		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
 
 		//対象クラス学生一覧取得
 		PreparedStatement st=con.prepareStatement(
-			"SELECT student.student_id, student_name, class_id, seat_no FROM student "
+			"SELECT student.student_id, student_name, class_id, seat_no, date, status, memo FROM student "
 				+ "JOIN classhistory ON student.student_id = classhistory.student_id "
+				+ "LEFT JOIN attendance ON student.student_id = attendance.student_id AND attendance.date = ? "
 				+ "WHERE class_id = ( "
 					+"SELECT class_id FROM class "
 						+ "WHERE grade = ? AND class_no = ? AND school_year = ? "
@@ -35,9 +41,11 @@ public class Attendance99DAO extends Dao {
 				+")"
 			+ "ORDER BY student.student_id"
 		);
-		st.setInt(1, grade);
-		st.setInt(2, classNo);
-		st.setInt(3, inputSchoolYear);
+
+		st.setDate(1, today);
+		st.setInt(2, grade);
+		st.setInt(3, classNo);
+		st.setInt(4, inputSchoolYear);
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -49,8 +57,18 @@ public class Attendance99DAO extends Dao {
 			ch.setStudentId(rs.getString("student_id"));
 			ch.setClassId(rs.getInt("class_id"));
 			ch.setSeatNo(rs.getInt("seat_no"));
-
 			stu.setClassHistoryList(ch);
+
+			Attendance at = new Attendance();
+			at.setStudentId(rs.getString("student_id"));
+			at.setDate(rs.getDate("date"));
+			if (Objects.nonNull(rs.getString("status"))){
+				char status[] = rs.getString("status").toCharArray();
+				at.setStatus(status[0]);
+			}
+			at.setMemo(rs.getString("memo"));
+			stu.setAttendanceList(at);
+
 			list.add(stu);
 		}
 
