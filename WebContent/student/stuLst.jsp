@@ -11,16 +11,18 @@
 <!-- ここから下に各画面の要素を足していく -->
 
 <form action="" method="post">
-<p><input type="submit" value="CSVファイルを読み込む"></p>
 
-<p>学生番号</p>
-<input type="text" name="studentId" value="${stu.getStudentId()}">
-
-<p>名前</p>
-<input type="text" name="studentName" >
-
-<p>コース名</p>
-<input type="text" name="courseId" value="システム開発コース" >
+<table border="1">
+<tr><th>お名前</th><th>コースID</th><th>入学年度</th><th>学生番号</th></tr>
+<c:forEach var="student" items="${stuList}">
+	<tr>
+	<td><input type="text" value="${student.studentName}" name="stu1Name"></td>
+	<td>${student.studentId}</td>
+	<td>${student.enrollmentYear}</td>
+	<td>${student.courseId}</td>
+	</tr>
+</c:forEach>
+</table>
 
 <p><input type="submit" value="登録"></p>
 </form>

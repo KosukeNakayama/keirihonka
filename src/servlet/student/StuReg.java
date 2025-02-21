@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Student;
-import dao.StudentDao;
+import dao.StudentDAO;
 
-@WebServlet(urlPatterns={"/stureg"})
+@WebServlet(urlPatterns={""})
 public class StuReg extends HttpServlet {
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 
-		StudentDao stuDao=new StudentDao();
+		StudentDAO stuDao=new StudentDAO();
 		int maxId=stuDao.getStudentMaxID();
 
 		Student stu = new Student();
