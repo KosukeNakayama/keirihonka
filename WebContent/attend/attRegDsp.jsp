@@ -42,7 +42,7 @@ Map<String, String>memoMap = new HashMap<String, String>();
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
-<select name="className" readonly>
+<select name="className" disabled>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
 <input type="submit"  class="operation-button" id="confirmBtn" value="選択" disabled>
@@ -85,7 +85,11 @@ for (StudentExp stu:stuList) {
 			String stringJ = String.valueOf(j);
 			String cellId = "cell" + String.format("%03d", j);
 
-			String statusColor = "";
+			//System.out.println("stringJ:" + stringJ + "status:" + statusMap.get(stringJ));
+
+			String statusColor = "white";
+			if(Objects.nonNull(studentsMap.get(stringJ))) {
+
 			switch(statusMap.get(stringJ)){
 				case "1":
 			    	statusColor = "red";
@@ -101,7 +105,7 @@ for (StudentExp stu:stuList) {
 					break;
 				case "5":
 					statusColor = "orange";
-			}
+			}}
 	%>
 			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>" style="background-color: <% out.print(statusColor); %>">
 	<%
@@ -122,7 +126,9 @@ for (StudentExp stu:stuList) {
 	}
 	%>
 	</tbody>
-	<tr><td class="space" colspan="<%= maxCol %>"></td></tr>
+</table>
+<br>
+<table>
 	<tr><td class="platform" colspan="<%= maxCol %>">教壇</td></tr>
 </table>
 

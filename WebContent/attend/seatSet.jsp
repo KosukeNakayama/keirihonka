@@ -21,7 +21,7 @@
 <!-- DBから取得 -->
 <label>クラス</label>
 <select name="className">
-	<option value="" selected>--選択--</option>
+	<option value="noSelect" selected>--選択--</option>
 	<c:forEach var="classList" items="${classList}">
 		<option value="${classList.className}">${classList.className}</option>
 	</c:forEach>

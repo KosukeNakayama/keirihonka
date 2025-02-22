@@ -23,6 +23,11 @@ public class AttRegDsp extends HttpServlet {
 		String paramString = request.getParameter("paramString");
 		String[] splitArray = paramString.split(",");
 		String className = splitArray[0];
+
+		if (className.equals("noSelect")) {
+			request.getRequestDispatcher("/attend/attReg.jsp").forward(request, response);
+		}
+
 		int seatRow = Integer.parseInt(splitArray[1]);
 		int seatCol = Integer.parseInt(splitArray[2]);
 		System.out.println("class:" + className + " row:" + seatRow + " col:" + seatCol);
@@ -58,8 +63,7 @@ public class AttRegDsp extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.getRequestDispatcher("/attend/attRegDsp.jsp")
-		.forward(request, response);
+		request.getRequestDispatcher("/attend/attRegDsp.jsp").forward(request, response);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

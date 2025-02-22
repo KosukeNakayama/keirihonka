@@ -1,40 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@page import="bean.ClassC, java.util.List" %>
-<% List<ClassC> classCList = (List<ClassC>)request.getAttribute("list"); %>
+
 <% String req = ""; %>
 
 <!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
+<link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 <title>座席情報設定</title>
 </head>
 <body>
-
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
 <form method="POST" action="SeatSetDsp">
 
-<!-- 後程DBから取得 -->
+<!-- DBから取得 -->
 <label>クラス</label>
-<select name="classC">
+<select name="className">
 	<option value="" selected>--選択--</option>
-<%
-	for (int i=0; i < classCList.size(); i++) {
-
-%>
-		<option value="<%= classCList.get(i) %>"><%= classCList.get(i) %></option>
-<%
-	}
-%>
+	<c:forEach var="classList" items="${classList}">
+		<option value="${classList.className}">${classList.className}</option>
+	</c:forEach>
 </select>
-<input type="submit" value="選択">
+<input type="submit" class="operation-button" value="選択">
 
-<br><br>
+<br>
 
 <label>座席配置（縦）</label>
 <select name="seatRow">
@@ -69,8 +63,10 @@
 </select>
 </form>
 
+<h3>登録が完了しました</h3>
+
 <br><br>
-<a href="">メニューに戻る</a>
+<a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
 
 </body>
 </html>

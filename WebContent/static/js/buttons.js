@@ -9,5 +9,13 @@ function cancelInput(){
     })
 }
 
-
+//const selectElem = document.getElementById("className");
+//
+//selectElem.addEventListener("change", () => {
+//  const index = selectElem.selectedIndex;
+//  alert("index:", index);
+//  if (index == 0) {
+//	  alert("クラスが選択されていません");
+//  }
+//});
 
