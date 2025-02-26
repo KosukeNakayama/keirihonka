@@ -10,20 +10,21 @@
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 
-<form action="csv/test" method="POST" enctype="multipart/form-data">
+<form action="StuRegCSV" method="POST" enctype="multipart/form-data">
 	<div class="tr">
 		<label for="csv" class="th">CSVファイルを選択してください。</label>
 		<div class="td">
 			<input type="file" id="csv" name="csv" required>
 		</div>
 	</div>
-  <input type="submit" value="登　録">
+  <input type="submit" value="表　示">
 
 
 
 </form>
 
 <a href="">メニュー</a>
+
 
 </body>
 </html>
