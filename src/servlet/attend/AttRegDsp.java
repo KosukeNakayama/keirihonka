@@ -30,7 +30,7 @@ public class AttRegDsp extends HttpServlet {
 
 		int seatRow = Integer.parseInt(splitArray[1]);
 		int seatCol = Integer.parseInt(splitArray[2]);
-		System.out.println("class:" + className + " row:" + seatRow + " col:" + seatCol);
+//		System.out.println("class:" + className + " row:" + seatRow + " col:" + seatCol);
 
 		//ヘッダー部登録（bean化した方が良い？）
 		SeatHeader sh = new SeatHeader();

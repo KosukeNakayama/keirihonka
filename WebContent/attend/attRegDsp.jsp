@@ -12,6 +12,8 @@ int maxRow = sh.getSeatRow();
 int maxCol = sh.getSeatCol();
 int numOfSeats = maxRow * maxCol;
 
+//座席配置表示時にseatNo->studentIdeを取得するためのMap
+Map<String, String>idMap = new HashMap<String, String>();
 //座席配置表示時にseatNo->studentNameを取得するためのMap
 Map<String, String>studentsMap = new HashMap<String, String>();
 //座席配置表示時にseatNo->statusを取得するためのMap
@@ -67,6 +69,7 @@ for (StudentExp stu:stuList) {
 		seatNoDsp = Integer.toString(stu.getClassHistoryList().getSeatNo());
 	}
 
+	idMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentId());
 	studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
 	statusMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), String.valueOf(stu.getAttendanceList().getStatus()));
 	memoMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getAttendanceList().getMemo());
@@ -84,8 +87,7 @@ for (StudentExp stu:stuList) {
 		for (int j=startNo; j<startNo+maxCol; j++) {
 			String stringJ = String.valueOf(j);
 			String cellId = "cell" + String.format("%03d", j);
-
-			//System.out.println("stringJ:" + stringJ + "status:" + statusMap.get(stringJ));
+			String studentId = idMap.get(stringJ);
 
 			String statusColor = "white";
 			if(Objects.nonNull(studentsMap.get(stringJ))) {
@@ -106,15 +108,16 @@ for (StudentExp stu:stuList) {
 				case "5":
 					statusColor = "orange";
 			}}
-	%>
-			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>" style="background-color: <% out.print(statusColor); %>">
+			%>
+			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>"
+				style="background-color: <% out.print(statusColor); %>"  data-value ="<% out.println(studentId); %>">
 	<%
 			//座席配置図で、表示Noに学生が登録済みの場合は氏名も表示
 			//String stringJ = String.valueOf(j);
 			if(Objects.isNull(studentsMap.get(stringJ))) {
 				out.print(j);
 			} else {
-				out.print(stringJ + "<br>" + studentsMap.get(stringJ));
+				out.print(stringJ + "<br> " + studentsMap.get(stringJ));
 			}
 
 	%>		</td>
@@ -150,6 +153,7 @@ for (StudentExp stu:stuList) {
 
 
 <br>
+<input type="hidden" name="attEntry" id="attEntry" value=""></input>
 <button  class="operation-button" type="button" id="seatEntryBtn">登録</button>
 
 <br><br>
