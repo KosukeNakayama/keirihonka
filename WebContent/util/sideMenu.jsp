@@ -44,7 +44,6 @@
 			<img class="arrow-drop-down" src="../static/img/down_triangle.png" />
 			成績
 		</div>
-
 		<li><a href="/keirihonka/score/ScoReg">成績入力・更新</a></li>
 		<li><a href="/keirihonka/score/scoRegCsv.jsp">成績入力（CSVファイル）</a></li>
 		<li><a href="">成績出力（未実装）</a></li>
