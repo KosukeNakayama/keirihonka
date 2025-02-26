@@ -62,15 +62,19 @@
         let textValue = textBox.value;
 
         let studentIdAtt = document.getElementById(tdID).dataset.value;
-        let attStatus = statusValue + ":" + textValue;
+        let attStatus = statusValue + "," + textValue;
 
-        console.log("tdID:" , tdID , "Att" , studentIdAtt);
-        console.log(studentIdAtt == null);
+//        console.log("tdID:" , tdID , "Att" , studentIdAtt);
+//        console.log(studentIdAtt == null);
 
-        if (studentIdAtt == null) { } else {
-        	document.getElementById('attEntry').value = document.getElementById('attEntry').value + "," + studentIdAtt + ":" + attStatus;
-        }
-        console.log(document.getElementById('attEntry').value);
+        let attEntry = document.getElementById('attEntry');
+        attEntry.value = attEntry.value + "|" + studentIdAtt + "," + attStatus;
+
+
+//        if (studentIdAtt == null) { } else {
+//        	document.getElementById('attEntry').value = document.getElementById('attEntry').value + "|" + studentIdAtt + "," + attStatus;
+//        }
+        console.log(attEntry.value);
 
         studentIdAtt = "";
         attStatus = "";

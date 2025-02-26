@@ -40,7 +40,7 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
 
-<form method="POST" action="AttRegExe"  name="seatEntryForm"  onSubmit="checkEntry()">
+<form method="POST" action="AttRegExe"  name="attEntryForm"  onSubmit="checkEntry()">
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
@@ -69,6 +69,7 @@ for (StudentExp stu:stuList) {
 		seatNoDsp = Integer.toString(stu.getClassHistoryList().getSeatNo());
 	}
 
+	//項目表示のためMapにデータを格納
 	idMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentId());
 	studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
 	statusMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), String.valueOf(stu.getAttendanceList().getStatus()));
@@ -154,13 +155,13 @@ for (StudentExp stu:stuList) {
 
 <br>
 <input type="hidden" name="attEntry" id="attEntry" value=""></input>
-<button  class="operation-button" type="button" id="seatEntryBtn">登録</button>
+<button type="button" class="operation-button" id="attEntryBtn">登録</button>
 
 <br><br>
 <a href="/keirihonka/servlet/attend/AttReg">メニューに戻る</a>
 </form>
 
-<script src="../../static/js/seatConfirm.js"></script>
+<script src="../../static/js/attConfirm.js"></script>
 <script src="../../static/js/date.js"></script>
 <script src="../../static/js/buttons.js"></script>
 <script src="../../static/js/modal.js"></script>
