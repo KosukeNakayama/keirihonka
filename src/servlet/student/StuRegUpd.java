@@ -45,6 +45,5 @@ public class StuRegUpd extends HttpServlet {
 			e.printStackTrace(out);
 		}
 
-
 	}
 }

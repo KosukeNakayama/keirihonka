@@ -15,12 +15,12 @@
 
 <form action="" method="post">
 <!-- 登録人数を送信 -->
-<input type="hidden" name="Count" value="${stuCsvList.size()}">
+<input type="hidden" name="Count" value="${stuUpdList.size()}">
 
 <table border="1">
 <tr><th>お名前</th><th>コースID</th><th>入学年度</th><th>学生番号</th></tr>
-<c:forEach var="student" items="${stuCsvList}">
- 	<% ArrayList studentList = (ArrayList)request.getAttribute("stuCsvList"); %>
+<c:forEach var="student" items="${stuUpdList}">
+ 	<% ArrayList studentList = (ArrayList)request.getAttribute("stuUpdList"); %>
     <%for(int i=1; i<=studentList.size(); i++) { %>
     <tr>
         <td><input type="text" value="${student.studentName}" name="stu<%=i%>Name"></td>
@@ -32,7 +32,7 @@
 </c:forEach>
 </table>
 
-<p><input type="submit" value="登録"></p>
+<p><input type="submit" value="更新"></p>
 </form>
 
 <a href="">メニュー</a>
