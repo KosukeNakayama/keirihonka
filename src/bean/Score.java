@@ -9,7 +9,7 @@ public class Score implements java.io.Serializable {
     private String subjectName;
     private String studentName;
     private int classId;
-    private int score;
+    private int score=-1;
     private int year;
     private int month;
 
