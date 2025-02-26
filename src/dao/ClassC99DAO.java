@@ -99,6 +99,45 @@ public class ClassC99DAO extends Dao {
 	}
 
 	//座席情報更新
+	public List<ClassC> updateClass(int classId, int vertical, int horizontal) throws Exception {
+
+		List<ClassC> list=new ArrayList<>();
+		Connection con=getConnection();
+
+		// 現在の日時を取得
+		long ts = System.currentTimeMillis();
+		Date startDate = new Date(ts);
+//		System.out.println(startDate);
+
+		try {
+
+			//座席縦横をUPDATE
+			PreparedStatement st = con.prepareStatement(
+				"UPDATE class SET "
+					+ "vertical = ?, "
+					+ "horizontal = ? "
+					+ "WHERE class_Id = ?; "
+			);
+
+			st.setInt(1, vertical);
+			st.setInt(2, horizontal);
+			st.setInt(3, classId);
+			System.out.println("class_id99:"+classId+" vertical99:"+vertical+" horizontal99:"+horizontal);
+			st.executeUpdate();
+//			int rs=st.executeUpdate();
+
+			st.close();
+
+		} catch(SQLException e)  {
+	              System.out.println("SQL Exception:"+e);
+		}
+		con.close();
+
+		return list;
+	}
+
+
+	//座席情報更新
 	public List<ClassC> updateClassHistory(int classId, String[] students, String[] seatNos) throws Exception {
 
 		List<ClassC> list=new ArrayList<>();
@@ -107,7 +146,7 @@ public class ClassC99DAO extends Dao {
 		// 現在の日時を取得
 		long ts = System.currentTimeMillis();
 		Date startDate = new Date(ts);
-		System.out.println(startDate);
+//		System.out.println(startDate);
 
 		try {
 
@@ -121,7 +160,7 @@ public class ClassC99DAO extends Dao {
 			);
 
 			for (int i=0; i<students.length; i++) {
-				System.out.println("seatNo["+i+"]:"+seatNos[i]);
+//				System.out.println("seatNo["+i+"]:"+seatNos[i]);
 
 				//searNo未入力の場合はDBにNullを設定
 				if (Objects.isNull(seatNos[i]) | seatNos[i].isEmpty()) {
@@ -134,7 +173,7 @@ public class ClassC99DAO extends Dao {
 				st.setNull(3, java.sql.Types.NULL);
 				st.setString(4, students[i]);
 				st.setInt(5, classId);
-				System.out.println("students[i]:"+seatNos[i]+" classId:"+classId+" seatNos[i]:"+seatNos[i]);
+//				System.out.println("students[i]:"+seatNos[i]+" classId:"+classId+" seatNos[i]:"+seatNos[i]);
 				int rs=st.executeUpdate();
 			}
 			st.close();

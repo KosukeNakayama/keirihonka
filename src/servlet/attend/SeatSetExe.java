@@ -27,10 +27,16 @@ public class SeatSetExe extends HttpServlet {
 		int classId = Integer.parseInt(request.getParameter("classId"));
 		String[] seatNosString = request.getParameterValues("seatNo");
 
+		System.out.println("class_id:"+classId+" vertical:"+seatRow+" horizontal:"+seatCol);
+
 		try {
+			//Class座席情報UPDATE
+			ClassC99DAO classDao = new ClassC99DAO();
+			classDao.updateClass(classId, seatRow, seatCol);
+
 			//ClassHistory追加
-			ClassC99DAO classHistoryDao = new ClassC99DAO();
-			classHistoryDao.updateClassHistory(classId, students, seatNosString);
+//			ClassC99DAO classHistoryDao = new ClassC99DAO();
+			classDao.updateClassHistory(classId, students, seatNosString);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

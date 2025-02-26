@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
+<link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 <title>座席情報設定</title>
 </head>
 <body>
@@ -19,12 +21,12 @@
 <!-- DBから取得 -->
 <label>クラス</label>
 <select name="className">
-	<option value="" selected>--選択--</option>
+	<option value="noSelect" selected>--選択--</option>
 	<c:forEach var="classList" items="${classList}">
 		<option value="${classList.className}">${classList.className}</option>
 	</c:forEach>
 </select>
-<input type="submit" value="選択">
+<input class="operation-button" type="submit" value="選択">
 
 <br>
 
