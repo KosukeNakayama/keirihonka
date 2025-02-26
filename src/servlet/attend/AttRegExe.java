@@ -1,6 +1,8 @@
 package servlet.attend;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +17,27 @@ public class AttRegExe extends HttpServlet {
 		) throws ServletException, IOException {
 
 		//POSTされた値を取得
+		request.setCharacterEncoding("UTF-8");
 		String attEntry = request.getParameter("attEntry");
+		//先頭に区切り文字が入るため、先頭1文字を削除
+		attEntry = attEntry.substring(1);
 		System.out.println("attEntry:" + attEntry);
 
-        String[] students = attEntry.split("|");
+		//学生一人分毎にデータを分割（区切り文字 ';'）しstudents配列にセット
+        List<String> students = Arrays.asList(attEntry.split(";"));
         for (String student : students) {
-            System.out.println(student);
+            System.out.println("\nstudent:" + student);
+            //一人分のデータを[studentId, status, memo]に分割（区切り文字 ','）しelements配列にセット
+            List<String> elements = Arrays.asList(student.split(","));
+            for (String element : elements) {
+            	//studentIdに値が入っていない場合は処理をしない
+            	if ((elements.get(0).equals("null")) || (elements.get(0) == null)) {
+            		continue;
+            	} else {
+                System.out.println("element:" + element);
+//                System.out.println("比較:" + elements.get(0).equals("null"));
+            	}
+            }
         }
 
 //		int seatRow = Integer.parseInt(request.getParameter("seatRow"));

@@ -57,25 +57,21 @@
             }
         }
 
-        //入力欄データ処理
+        //出欠状況コメント入力欄データ処理
         let textBox = document.getElementById('text-value');
         let textValue = textBox.value;
 
+        //指定セルのstudentIdとstatusを取得
         let studentIdAtt = document.getElementById(tdID).dataset.value;
         let attStatus = statusValue + "," + textValue;
 
-//        console.log("tdID:" , tdID , "Att" , studentIdAtt);
-//        console.log(studentIdAtt == null);
-
+        //入力状況を文字列にまとめてattRegDsp.jspのattEntry要素にセット
         let attEntry = document.getElementById('attEntry');
-        attEntry.value = attEntry.value + "|" + studentIdAtt + "," + attStatus;
+        attEntry.value = attEntry.value + ";" + studentIdAtt.trim() + "," + attStatus;
 
-
-//        if (studentIdAtt == null) { } else {
-//        	document.getElementById('attEntry').value = document.getElementById('attEntry').value + "|" + studentIdAtt + "," + attStatus;
-//        }
         console.log(attEntry.value);
 
+        //入力値初期化
         studentIdAtt = "";
         attStatus = "";
         textBox.value = "";

@@ -139,7 +139,7 @@ for (StudentExp stu:stuList) {
 <div id="js-overlay" class="overlay">
     <div id="att" class="js-modal modal">
     <p class="modal-header"><span class="modal-cancel-btn" id="cancelBtn">×</span></p>
-      <form id="prompt-form">
+      <div id="prompt-form">
         <label><input type="radio" name="status" value="0">出席　□</label>
         <label><input type="radio" name="status" value="1">欠席　<span style="color: red">■</span></label>
         <label><input type="radio" name="status" value="2">遅刻　<span style="color: yellow">■</span></label>
@@ -148,7 +148,7 @@ for (StudentExp stu:stuList) {
         <label><input type="radio" name="status" value="5">遅刻早退　<span style="color: orange">■</span></label>
         <label>コメント<input type="text" name="comment" placeholder="コメントを入力" id="text-value"></label>
         <label><span class="operation-button" id="entryBtn">登録</span></label>
-      </form>
+      </div>
     </div>
 </div>
 
