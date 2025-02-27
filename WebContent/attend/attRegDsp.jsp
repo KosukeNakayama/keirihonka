@@ -94,6 +94,7 @@ for (StudentExp stu:stuList) {
 			String stringJ = String.valueOf(j);
 			String cellId = "cell" + String.format("%03d", j);
 			String studentId = idMap.get(stringJ);
+			String memo = memoMap.get(stringJ);
 
 			String statusColor = "white";
 			if(Objects.nonNull(studentsMap.get(stringJ))) {
@@ -119,7 +120,10 @@ for (StudentExp stu:stuList) {
 			}}
 			%>
 			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>"
-				style="background-color: <% out.print(statusColor); %>"  data-value ="<% out.println(studentId); %>">
+				style="background-color: <% out.print(statusColor); %>"
+				data-student ="<% out.println(studentId); %>"
+				data-memo ="<% out.println(memo); %>"
+			>
 	<%
 			//座席配置図で、表示Noに学生が登録済みの場合は氏名も表示
 			//String stringJ = String.valueOf(j);
@@ -154,7 +158,7 @@ for (StudentExp stu:stuList) {
         <label><input type="radio" name="status" value="3">早退　<span style="color: violet">■</span></label>
         <label><input type="radio" name="status" value="4">他欠　<span style="color: greenyellow">■</span></label>
         <label><input type="radio" name="status" value="5">遅刻早退　<span style="color: orange">■</span></label>
-        <label>コメント<input type="text" name="comment" placeholder="コメントを入力" id="text-value"></label>
+        <label>メモ<input type="text" name="comment" placeholder="メモを入力" id="text-value"></label>
         <label><span class="operation-button" id="entryBtn">登録</span></label>
       </div>
     </div>

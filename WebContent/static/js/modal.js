@@ -10,6 +10,15 @@
             const target = el.getAttribute('data-modal')
             document.getElementById('js-overlay').classList.add('is-show')
             document.getElementById(target).style.display = 'block'
+
+           //登録済みのメモを表示
+           var tdID = trgEl.getAttribute("id");
+           let textBox = document.getElementById('text-value');
+           let entryMemo = document.getElementById(tdID).dataset.memo;
+           if (entryMemo != null) {
+        	   textBox.textContent = entryMemo;
+        	   textBox.value = entryMemo;
+           }
         })
     })
 
@@ -21,7 +30,7 @@
         e.preventDefault();
 
         //選択statusを取得
-        var statusArray = document.getElementsByName('status');
+        let statusArray = document.getElementsByName('status');
         let statusValue = '';
 
         for (var i=0; i<statusArray.length; i++){
@@ -58,9 +67,10 @@
         //出欠状況コメント入力欄データ処理
         let textBox = document.getElementById('text-value');
         let textValue = textBox.value;
+        console.log("textValue:",textValue);
 
         //指定セルのstudentIdとstatusを取得
-        let studentIdAtt = document.getElementById(tdID).dataset.value;
+        let studentIdAtt = document.getElementById(tdID).dataset.student;
         let attStatus = statusValue + "," + textValue;
 
         //入力状況を文字列にまとめてattRegDsp.jspのattEntry要素にセット

@@ -85,7 +85,7 @@ public class Attendance99DAO extends Dao {
 
 		List<Attendance> list=new ArrayList<>();
 		Connection con=getConnection();
-
+//		System.out.println("select");
 		//今年度を取得
 		//int inputSchoolYear = SchoolYear.returnSchoolYear(date);
 
@@ -114,13 +114,12 @@ public class Attendance99DAO extends Dao {
 
 
 	//座席情報更新
-	public List<Attendance> updateAttendance(String studentId, Date date,  String status, String memo) throws Exception {
+	public void updateAttendance(String studentId, Date date,  String status, String memo) throws Exception {
 
 		List<Attendance> list=new ArrayList<>();
 		Connection con=getConnection();
-
+//		System.out.println("update");
 		try {
-
 			//指定学生＋日付データをUPDATE
 			PreparedStatement st = con.prepareStatement(
 				"UPDATE attendance SET "
@@ -128,7 +127,6 @@ public class Attendance99DAO extends Dao {
 					+ "memo = ? "
 					+ "WHERE student_Id = ? AND date = ?; "
 			);
-
 
 			st.setString(1, status);
 			st.setString(2, memo);
@@ -144,14 +142,14 @@ public class Attendance99DAO extends Dao {
 
 		con.close();
 
-		return list;
+		return;
 	}
 
 	//座席情報追加
 	public void insertAttendance(String studentId, Date date, String status, String memo) throws Exception {
 
 		Connection con=getConnection();
-
+//		System.out.println("insert");
 		try {
 
 			//Attendanceデータ追加
@@ -181,16 +179,16 @@ public class Attendance99DAO extends Dao {
 	public void deleteAttendance(String studentId, Date date) throws Exception {
 
 		Connection con=getConnection();
-
+//		System.out.println("delete");
 		//今年度を取得
 		//int inputSchoolYear = SchoolYear.returnSchoolYear(date);
 
 		try {
 			//対象出欠データ削除
 			PreparedStatement st = con.prepareStatement(
-					"DELETE FROM attendance"
-							+ " WHERE student_id = ? AND date = ?"
-					);
+				"DELETE FROM attendance"
+					+ " WHERE student_id = ? AND date = ?"
+			);
 
 			st.setString(1, studentId);;
 			st.setDate(2, date);
@@ -200,7 +198,7 @@ public class Attendance99DAO extends Dao {
 
 		} catch(SQLException e)  {
             System.out.println("SQL Exception:"+e) ;
-	}
+		}
 
 		con.close();
 

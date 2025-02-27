@@ -34,36 +34,36 @@ window.onload = function(){
 function dayBefore(){
 
 //    resetForm();
-	colorSet();
-
-    //前日日付取得
-    const prevDate = new Date(currentDate.getTime());
-    prevDate.setDate(prevDate.getDate()-1);
-
-    //前日を"yyyy/mm/dd"形式に整形し表示
-    let yesterday = getDisplayDate( prevDate );
-
-    //画面表示日付を1日前に再表示
-    currentDate = prevDate;
-    document.getElementById('currentEl').textContent = yesterday;
+//	colorSet();
+//
+//    //前日日付取得
+//    const prevDate = new Date(currentDate.getTime());
+//    prevDate.setDate(prevDate.getDate()-1);
+//
+//    //前日を"yyyy/mm/dd"形式に整形し表示
+//    let yesterday = getDisplayDate( prevDate );
+//
+//    //画面表示日付を1日前に再表示
+//    currentDate = prevDate;
+//    document.getElementById('currentEl').textContent = yesterday;
 }
 
 //■翌日ボタン押下時処理
 function dayNext(){
-
-//    resetForm();
-	colorSet();
-
-    //当日日付取得
-    const nextDate = new Date(currentDate.getTime());
-    nextDate.setDate(nextDate.getDate()+1);
-
-    //翌日を"yyyy/mm/dd"形式に整形し表示
-    let tomorrow = getDisplayDate( nextDate );
-
-    //画面表示日付を1日後に再表示
-    currentDate = nextDate;
-    document.getElementById('currentEl').textContent = tomorrow;
+//
+////    resetForm();
+//	colorSet();
+//
+//    //当日日付取得
+//    const nextDate = new Date(currentDate.getTime());
+//    nextDate.setDate(nextDate.getDate()+1);
+//
+//    //翌日を"yyyy/mm/dd"形式に整形し表示
+//    let tomorrow = getDisplayDate( nextDate );
+//
+//    //画面表示日付を1日後に再表示
+//    currentDate = nextDate;
+//    document.getElementById('currentEl').textContent = tomorrow;
 }
 
 //■表示形式整形
