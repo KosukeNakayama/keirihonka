@@ -16,8 +16,6 @@
     //modal内でのform設定
     let entryBtn = document.getElementById('entryBtn');
     entryBtn.addEventListener('click', function(e){
-//    let inForm = document.getElementById('prompt-form');
-//    inForm.addEventListener("submit", function(e){
 
         //form再読み込み禁止（入力を残す）
         e.preventDefault();
@@ -67,7 +65,7 @@
 
         //入力状況を文字列にまとめてattRegDsp.jspのattEntry要素にセット
         let attEntry = document.getElementById('attEntry');
-        attEntry.value = attEntry.value + ";" + studentIdAtt.trim() + "," + attStatus;
+        attEntry.value = attEntry.value + ";" + studentIdAtt.trim() + "," + attStatus + " ";
 
         console.log(attEntry.value);
 

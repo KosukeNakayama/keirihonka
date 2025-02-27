@@ -50,6 +50,11 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <input type="submit"  class="operation-button" id="confirmBtn" value="選択" disabled>
 <input type="hidden" id="numOfSeats" value="<%= numOfSeats %>">
 
+<br>
+<div style="color: red; font-weight: bold;">
+出欠設定後、登録ボタンを忘れずに！
+</div>
+
 <p id="date">
 	<span id="beforeEl" >◀</span>
 	<span id="currentEl"></span>
@@ -94,6 +99,9 @@ for (StudentExp stu:stuList) {
 			if(Objects.nonNull(studentsMap.get(stringJ))) {
 
 			switch(statusMap.get(stringJ)){
+				case "0":
+		    		statusColor = "white";
+		    	break;
 				case "1":
 			    	statusColor = "red";
 			    	break;

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -79,88 +80,132 @@ public class Attendance99DAO extends Dao {
 	}
 
 
-//	//クラス一覧取得
-//	public List<Attendance> selectAll(String studentId, Date date) throws Exception {
-//
-//		List<Attendance> list=new ArrayList<>();
-//		Connection con=getConnection();
-//
-//		//今年度を取得
-//		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
-//
-//		//今年度クラス一覧取得
-//		PreparedStatement st = con.prepareStatement(
-//			"SELECT * FROM attendance"
-//				+ " WHERE student_id = ? AND date = ?"
-//				+ " ORDER BY student_id"
-//		);
-//		st.setString(1, studentId);;
-//		st.setDate(2, date);
-//		ResultSet rs=st.executeQuery();
-//
-//		while (rs.next()) {
-//			Attendance att=new Attendance();
-////			att.setStatus(rs.getString("status"));
-//			char[] c = rs.getString("status").toCharArray();
-//			att.setStatus(c[0]);
-//			att.setMemo(rs.getString("memo"));
-//			list.add(att);
-//		}
-//
-//		st.close();
-//		con.close();
-//
-//		return list;
-//	}
+	//更新データ存在確認
+	public List<Attendance> selectByStuDate(String studentId, Date date) throws Exception {
+
+		List<Attendance> list=new ArrayList<>();
+		Connection con=getConnection();
+
+		//今年度を取得
+		//int inputSchoolYear = SchoolYear.returnSchoolYear(date);
+
+		//今年度クラス一覧取得
+		PreparedStatement st = con.prepareStatement(
+			"SELECT * FROM attendance"
+				+ " WHERE student_id = ? AND date = ?"
+		);
+		st.setString(1, studentId);;
+		st.setDate(2, date);
+		ResultSet rs=st.executeQuery();
+
+		while (rs.next()) {
+			Attendance att=new Attendance();
+			char[] c = rs.getString("status").toCharArray();
+			att.setStatus(c[0]);
+			att.setMemo(rs.getString("memo"));
+			list.add(att);
+		}
+
+		st.close();
+		con.close();
+
+		return list;
+	}
 
 
-//	//座席情報更新
-//	public List<ClassC> updateClassHistory(int classId, String[] students, String[] seatNos) throws Exception {
-//
-//		List<ClassC> list=new ArrayList<>();
-//		Connection con=getConnection();
-//
-//		// 現在の日時を取得
-//		long ts = System.currentTimeMillis();
-//		Date startDate = new Date(ts);
-//		System.out.println(startDate);
-//
-//		try {
-//
-//			//SeatNoをUPDATE
-//			PreparedStatement st = con.prepareStatement(
-//				"UPDATE classHistory SET "
-//					+ "seat_no = ?, "
-//					+ "start_date = ?, "
-//					+ "end_date = ? "
-//					+ "WHERE student_Id = ? AND class_id = ?; "
-//			);
-//
-//			for (int i=0; i<students.length; i++) {
-//				System.out.println("seatNo["+i+"]:"+seatNos[i]);
-//
-//				//searNo未入力の場合はDBにNullを設定
-//				if (Objects.isNull(seatNos[i]) | seatNos[i].isEmpty()) {
-//					st.setNull(1, java.sql.Types.NULL);
-//				} else {
-//					st.setInt(1, Integer.parseInt(seatNos[i]));
-//				}
-//
-//				st.setDate(2, startDate);
-//				st.setNull(3, java.sql.Types.NULL);
-//				st.setString(4, students[i]);
-//				st.setInt(5, classId);
-//				System.out.println("students[i]:"+seatNos[i]+" classId:"+classId+" seatNos[i]:"+seatNos[i]);
-//				int rs=st.executeUpdate();
-//			}
-//			st.close();
-//
-//		} catch(SQLException e)  {
-//	              System.out.println("SQL Exception:"+e) ;
-//		}
-//
-//		con.close();
-//
-//		return list;
-//	}
+	//座席情報更新
+	public List<Attendance> updateAttendance(String studentId, Date date,  String status, String memo) throws Exception {
+
+		List<Attendance> list=new ArrayList<>();
+		Connection con=getConnection();
+
+		try {
+
+			//指定学生＋日付データをUPDATE
+			PreparedStatement st = con.prepareStatement(
+				"UPDATE attendance SET "
+					+ "status = ?,"
+					+ "memo = ? "
+					+ "WHERE student_Id = ? AND date = ?; "
+			);
+
+
+			st.setString(1, status);
+			st.setString(2, memo);
+			st.setString(3, studentId);
+			st.setDate(4, date);
+			int rs=st.executeUpdate();
+
+			st.close();
+
+		} catch(SQLException e)  {
+	              System.out.println("SQL Exception:"+e) ;
+		}
+
+		con.close();
+
+		return list;
+	}
+
+	//座席情報追加
+	public void insertAttendance(String studentId, Date date, String status, String memo) throws Exception {
+
+		Connection con=getConnection();
+
+		try {
+
+			//Attendanceデータ追加
+			PreparedStatement st = con.prepareStatement(
+				"INSERT INTO attendance VALUES( ?, ?, ?, ?);"
+			);
+
+			st.setString(1, studentId);
+			st.setDate(2, date);
+			st.setString(3, status);
+			st.setString(4, memo);
+
+			st.executeUpdate();
+
+			st.close();
+
+		} catch(SQLException e)  {
+	              System.out.println("SQL Exception:"+e) ;
+		}
+
+		con.close();
+
+		return;
+	}
+
+	//出席（statuds=0）の時はデータ削除
+	public void deleteAttendance(String studentId, Date date) throws Exception {
+
+		Connection con=getConnection();
+
+		//今年度を取得
+		//int inputSchoolYear = SchoolYear.returnSchoolYear(date);
+
+		try {
+			//対象出欠データ削除
+			PreparedStatement st = con.prepareStatement(
+					"DELETE FROM attendance"
+							+ " WHERE student_id = ? AND date = ?"
+					);
+
+			st.setString(1, studentId);;
+			st.setDate(2, date);
+			st.executeUpdate();
+
+			st.close();
+
+		} catch(SQLException e)  {
+            System.out.println("SQL Exception:"+e) ;
+	}
+
+		con.close();
+
+		return;
+	}
+
+
 }
