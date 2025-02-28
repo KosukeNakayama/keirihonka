@@ -31,63 +31,66 @@ public class AttRegExe extends HttpServlet {
 		//POSTされた値を取得
 		request.setCharacterEncoding("UTF-8");
 		String attEntry = request.getParameter("attEntry");
-		//先頭に区切り文字が入るため、先頭1文字を削除
-		attEntry = attEntry.substring(1);
-//		System.out.println("attEntry:" + attEntry);
 
-		//学生一人分毎にデータを分割（区切り文字 ';'）しstudents配列にセット
-        List<String> students = Arrays.asList(attEntry.split(";"));
-        for (String student : students) {
+		//修正なしで登録されたときはDB登録しない
+		if (attEntry.length() != 0) {
+			//先頭に区切り文字が入るため、先頭1文字を削除
+			attEntry = attEntry.substring(1);
 
-        	//引数設定
-        	String studentId = "";
-        	String status = "";
-    		String memo = "";
-            System.out.println("\nstudent:" + student);
+			//学生一人分毎にデータを分割（区切り文字 ';'）しstudents配列にセット
+			List<String> students = Arrays.asList(attEntry.split(";"));
+			for (String student : students) {
 
-            //一人分のデータを[studentId, status, memo]に分割（区切り文字 ','）しelements配列にセット
-            List<String> elements = Arrays.asList(student.split(","));
-//    		System.out.println("size:" + elements.size());
+				//引数設定
+				String studentId = "";
+				String status = "";
+				String memo = "";
+				System.out.println("\nstudent:" + student);
 
-    		//studentIdに値が入っていない場合は処理をしない
-        	if ((elements.get(0).equals("null")) || (elements.get(0) == null)) {
-        		continue;
-        	} else {
-//        		System.out.println("elements0:" + elements.get(0));
-            	studentId = elements.get(0);
-            	status = elements.get(1);
+				//一人分のデータを[studentId, status, memo]に分割（区切り文字 ','）しelements配列にセット
+				List<String> elements = Arrays.asList(student.split(","));
+//    			System.out.println("size:" + elements.size());
 
-            	//elementsの項目数が2（memoが未入力）の場合の設定
-//            	System.out.println("elements2:" + elements.get(2).trim() + " size:" + elements.size());
-         		if ((elements.size() < 3 ) || (elements.get(2).trim().equals("null"))) {
-        			memo = "";
-        		} else {
-        			memo = elements.get(2);
-        		}
+				//studentIdに値が入っていない場合は処理をしない
+				if ((elements.get(0).equals("null")) || (elements.get(0) == null)) {
+					continue;
+				} else {
+//        			System.out.println("elements0:" + elements.get(0));
+					studentId = elements.get(0);
+					status = elements.get(1);
 
-         		try {
+					//elementsの項目数が2（memoが未入力）の場合の設定
+//            		System.out.println("elements2:" + elements.get(2).trim() + " size:" + elements.size());
+					if ((elements.size() < 3 ) || (elements.get(2).trim().equals("null"))) {
+						memo = "";
+					} else {
+						memo = elements.get(2);
+					}
 
-         			//Attencence情報処理
-         			Attendance99DAO attendanceDao = new Attendance99DAO();
-         			List<Attendance> list = attendanceDao.selectByStuDate(studentId, today);
+					try {
 
-         			//指定日出欠データが存在しない
-         			if (list.size() == 0) {
-         				attendanceDao.insertAttendance(studentId, today, status, memo);
-         			} else {
-         				//入力ミスで登録済みを【出席】に再設定時は出欠データを削除
-         				if (status.equals("0")) {
-         					attendanceDao.deleteAttendance(studentId, today);
-         				} else {
-         					//指定日出欠データを再設定
-         					attendanceDao.updateAttendance(studentId, today, status, memo);
-         				}
-         			}
-         		} catch (Exception e) {
-         			e.printStackTrace();
-         		}
-        	}
-        }
+						//Attencence情報処理
+						Attendance99DAO attendanceDao = new Attendance99DAO();
+						List<Attendance> list = attendanceDao.selectByStuDate(studentId, today);
+
+						//指定日出欠データが存在しない
+						if (list.size() == 0) {
+							attendanceDao.insertAttendance(studentId, today, status, memo);
+						} else {
+							//入力ミスで登録済みを【出席】に再設定時は出欠データを削除
+							if (status.equals("0")) {
+								attendanceDao.deleteAttendance(studentId, today);
+							} else {
+								//指定日出欠データを再設定
+								attendanceDao.updateAttendance(studentId, today, status, memo);
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 
         try {
         	//今年度取得用当日日付

@@ -38,7 +38,7 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
-<select name="className" readonly>
+<select name="className" disabled>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
 <input type="submit" class="operation-button" id="confirmBtn" value="選択" disabled>

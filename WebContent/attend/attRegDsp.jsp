@@ -50,11 +50,14 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <input type="submit"  class="operation-button" id="confirmBtn" value="選択" disabled>
 <input type="hidden" id="numOfSeats" value="<%= numOfSeats %>">
 
-<br>
+<br><br>
 <div style="color: red; font-weight: bold;">
 出欠設定後、登録ボタンを忘れずに！
 </div>
 
+<input type="hidden" name="attEntry" id="attEntry" value=""></input>
+<button type="button" class="entry-button" id="attEntryBtn">登録</button>
+<br>
 <p id="date">
 	<span id="beforeEl" >◀</span>
 	<span id="currentEl"></span>
@@ -94,7 +97,11 @@ for (StudentExp stu:stuList) {
 			String stringJ = String.valueOf(j);
 			String cellId = "cell" + String.format("%03d", j);
 			String studentId = idMap.get(stringJ);
-			String memo = memoMap.get(stringJ);
+			String memo = "";
+			if(Objects.nonNull(memoMap.get(stringJ))) {
+				memo = memoMap.get(stringJ);
+			}
+			//System.out.println(memo);
 
 			String statusColor = "white";
 			if(Objects.nonNull(studentsMap.get(stringJ))) {
@@ -165,9 +172,6 @@ for (StudentExp stu:stuList) {
 </div>
 
 
-<br>
-<input type="hidden" name="attEntry" id="attEntry" value=""></input>
-<button type="button" class="operation-button" id="attEntryBtn">登録</button>
 
 <br><br>
 <a href="/keirihonka/servlet/attend/AttReg">メニューに戻る</a>

@@ -18,6 +18,9 @@
            if (entryMemo != null) {
         	   textBox.textContent = entryMemo;
         	   textBox.value = entryMemo;
+           } else {
+        	   textBox.textContent = " ";
+        	   textBox.value = " ";
            }
         })
     })
