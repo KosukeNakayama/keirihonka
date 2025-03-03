@@ -59,11 +59,12 @@ public class StuRegCSV extends HttpServlet {
 		}
 
 		//listの中にcsvに記入されていた学生の情報が詰まっている
-		request.setAttribute("stuList", stuList);
+		request.setAttribute("stuCsvList", stuList);
 
 		//jsp
-		request.getRequestDispatcher("stuList.jsp")
+		request.getRequestDispatcher("stuCsvList.jsp")
 		.forward(request, response);
+
     }
 }
 

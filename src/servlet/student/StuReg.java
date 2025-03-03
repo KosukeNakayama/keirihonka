@@ -27,5 +27,6 @@ public class StuReg extends HttpServlet {
 
 		request.getRequestDispatcher("stuReg.jsp")
 		.forward(request, response);
+
 	}
 }
