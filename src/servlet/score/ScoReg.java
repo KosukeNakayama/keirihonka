@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ClassC;
-import bean.Score;
 import bean.Student;
 import bean.Subject;
 import dao.ClassCDao;
 import dao.ClassHistoryDao;
-import dao.ScoreDao;
 import dao.SubjectDao;
 
 @WebServlet(urlPatterns = { "/score/ScoReg" })
@@ -24,10 +22,8 @@ public class ScoReg extends HttpServlet {
 	List<ClassC> list;
 	List<Subject> list2;
 	List<Student> list3 = null;
-	List<Score> list4;
 	ClassCDao dao = new ClassCDao();
 	SubjectDao dao2 = new SubjectDao();
-	ScoreDao dao3 =new ScoreDao();
 
 	// 成績入力 クラス 月 科目 １０・２３
 	@Override
@@ -86,14 +82,9 @@ public class ScoReg extends HttpServlet {
 				list2 = dao2.search();
 				req.setAttribute("list", list);
 				req.setAttribute("list2", list2);
-				//新規に追加 → insert
 				list3 = stdao.search(class_id);
-				//既に成績が登録されている場合 → update
-				list4 = dao3.search(list3, subject_id);
-				System.out.println(list3.size() + "件-Student");
-				System.out.println(list4.size() + "件-Score");
+				System.out.println(list3.size() + "件");
 				req.setAttribute("list3", list3);
-				req.setAttribute("list4", list4);
 				// JSPページにフォワードして、結果を表示
 				req.getRequestDispatcher("scoReg.jsp").forward(req, resp);
 			} catch (Exception e) {

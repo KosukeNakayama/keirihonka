@@ -32,6 +32,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th scope="col">学年</th>
 				<th scope="col">月</th>
 				<th scope="col">学生番号</th>
 				<th scope="col">氏名</th>
@@ -58,6 +59,9 @@
 					out.println("<tr><td colspan='6'>No data available</td></tr>");
 				}
 			%></tbody>
+
+
 	</table>
+<input type="submit" value="登録">
 </body>
 </html>

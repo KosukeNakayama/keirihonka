@@ -4,21 +4,38 @@
 <%@page import="bean.*,java.util.List"%>
 
 <div>
-	<form action="ScoCnf" method="post">
-		<label for="student_id">学生番号</label>
-		<input type="text" name="student_id" id="student_id">
-		<input type="submit" value="選択">
-	</form>
+	<select name="classes" id="classes">
+		<option value="101">1年1組</option>
+		<option value="201">2年1組</option>
+	</select> <select name="month" id="month">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+	</select> <select>
+		<option value="1">PythonⅠ</option>
+		<option value="2">PythonⅡ</option>
+	</select> <input type="submit" value="選択">
+
 </div>
 <div>
-
+	<%--
 <% List<Score> list=(List<Score>)request.getAttribute("list"); %>
+ --%>
 
 </div>
-<table border="1">
+<table>
 	<thead>
 		<tr>
-			<th scope="col">年</th>
+			<th scope="col">学年</th>
 			<th scope="col">月</th>
 			<th scope="col">学生番号</th>
 			<th scope="col">氏名</th>
@@ -27,29 +44,25 @@
 		</tr>
 	</thead>
 	<tbody>
-<%
-    if (list == null || list.isEmpty()) {
-%>
-    <p>データがありません。</p>
-<%
-    } else {
+		<%--
+		<%
 			for (Score p : list) {
 		%>
 		<tr>
-			<td><%=p.getYear()%></td>
-			<td><%=p.getMonth()%></td>
-			<td><%=p.getStudentId()%></td>
-			<td><%=p.getStudentName()%></td>
-			<td><%=p.getSubjectName()%></td>
-			<td><%=p.getScore()%></td>
+			<td><%=%></td>
+			<td><%=%></td>
+			<td><%=%></td>
+			<td><%=%></td>
+			<td><%=%></td>
+			<td><input type="text" name=""></td>
 		</tr>
 
 		<%
 			}
-    }
 		%>
-
+        --%>
 	</tbody>
 </table>
+<input type="submit" value="確認">
 </body>
 </html>

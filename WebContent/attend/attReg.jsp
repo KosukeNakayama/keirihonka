@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="bean.ClassC, java.util.List" %>
 
@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 <title>出欠入力</title>
 </head>
 <body>
@@ -19,18 +18,19 @@
 
 <!-- DBから取得 -->
 <label>クラス</label>
-<select name="paramString">
-	<option value="noSelect" selected>--選択--</option>
-	<c:forEach var="classList" items="${classList}">
-		<option value="${classList.className += ',' += classList.vertical += ',' += classList.horizontal}">${classList.className}</option>
+<select name="className">
+	<option value="" selected>--選択--</option>
+	<c:forEach var="classList" items="${studentList}">
+		<option value="${studentList.className}">${studentList.className}</option>
 	</c:forEach>
 </select>
-<input type="submit" class="operation-button" value="選択">
+<input type="submit" value="選択">
+
 
 </form>
 
 <br><br>
-<a href="/keirihonka/servlet/attend/AttRegDsp">メニューに戻る</a>
+<a href="/keirihonka/servlet/attend/AttSet">メニューに戻る</a>
 
 </body>
 </html>
