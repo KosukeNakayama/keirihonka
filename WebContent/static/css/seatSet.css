@@ -17,13 +17,17 @@ td.seatTable {
 }
 
 td.platform {
+	background-color: #f5deb3;
 	height: 35px;
+	width: 100px;
 	text-align: center;
 	vertical-align: middle;
 }
 
 td.space {
 	height: 20px;
+	border-left: none;
+	border-right: none;
 }
 
 .noframe{

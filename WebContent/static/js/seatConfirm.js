@@ -15,10 +15,23 @@ seatEntryBtn.addEventListener('click', function() {
 	const aryMax = function (a, b) {return Math.max(a, b);}
 	let seatMax = seatArray.reduce(aryMax);
 
+	//重複値未入力flag
+	var isInputNull = false;
+	//重複値配列を降順にsort
+	var duplicateValue = seatArray.filter(function (x, i, self) {
+		return self.indexOf(x) !== self.lastIndexOf(x);
+	}).sort((a, b) => b - a);
+	//重複値が未入力であればflagを立てる
+	if ((duplicateValue[0] === '') || (duplicateValue[0] === null)) {
+		isInputNull = true;
+	}
+
 	//座席番号チェック
-	if (isDuplicated(seatArray)) {
-		alert("座席番号に重複があります");
+	if ( isDuplicated(seatArray) && !isInputNull) {
+		//値が入力&重複ならエラーメッセージ
+		alert(" 座席番号に重複があります　重複番号: " + duplicateValue[0]);
 	}　else if (numOfSeats < seatMax) {
+		//座席数最大値チェック
 		alert("座席番号が最大値(" + numOfSeats + ")を超えています");
 	} else {
 		//エラーがなければ登録処理確認

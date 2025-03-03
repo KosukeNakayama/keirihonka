@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
+<link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 <title>座席情報設定</title>
 </head>
 <body>
@@ -24,7 +26,7 @@
 		<option value="${classList.className}">${classList.className}</option>
 	</c:forEach>
 </select>
-<input type="submit" value="選択">
+<input type="submit" class="operation-button" value="選択">
 
 <br>
 

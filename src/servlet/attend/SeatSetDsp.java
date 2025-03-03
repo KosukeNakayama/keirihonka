@@ -24,6 +24,10 @@ public class SeatSetDsp extends HttpServlet {
 		int seatRow = Integer.parseInt(request.getParameter("seatRow"));
 		int seatCol = Integer.parseInt(request.getParameter("seatCol"));
 
+		if (className.equals("noSelect")) {
+			request.getRequestDispatcher("/attend/seatSet.jsp").forward(request, response);
+		}
+
 		//ヘッダー部登録（bean化した府が良い？）
 		SeatHeader sh = new SeatHeader();
 		sh.setClassName(className);
