@@ -71,14 +71,14 @@
 			<%
 				// リクエストから list3 を取得
 				List<Student> list3 = (List<Student>) request.getAttribute("list3");
-
+				List<Score> list4 = (List<Score>) request.getAttribute("list4");
 				// list3 が null でないことを確認
 				if (list3 != null && !list3.isEmpty()) {
 			%>
 
 		<tbody>
 			<%
-				for (Student student : list3) {
+				for (Score student : list4) {
 						if (student != null) { // student オブジェクトが null でないことを確認
 			%>
 			<tr>
@@ -87,7 +87,7 @@
 				<td><%=student.getStudentId()%></td>
 				<td><%=student.getStudentName()%></td>
 				<td><%=request.getAttribute("subject")%></td>
-				<td><input type="text" name="score-<%=i%>"></td>
+				<td><input type="text" name="score-<%=i%>" value="<%=student.getScore() %>"></td>
 				<input type="hidden" name="student_id-<%=i%>"
 					value="<%=student.getStudentId()%>">
 			</tr>

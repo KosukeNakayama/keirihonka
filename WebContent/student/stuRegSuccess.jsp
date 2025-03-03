@@ -10,17 +10,11 @@
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 
-<p>学生番号</p>
-<p>学生番号入力</p>
+<p>登録完了しました。</p>
 
-<form action="" method=post>
-<input type="number" maxlength="7" name="studentId" value="">
-
-<p><input type="submit" value="検　索"></p>
-</form>
+<a href="stuReg.jsp">学生登録</a><br>
 
 <a href="">メニュー</a>
-
 
 
 </body>

@@ -11,24 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.StudentExp;
-import dao.ClassC99DAO;
+import dao.Attendance99DAO;
 
-@WebServlet(urlPatterns={"/servlet/attend/SeatSetDsp"})
-public class SeatSetDsp extends HttpServlet {
+@WebServlet(urlPatterns={"/servlet/attend/AttRegDsp"})
+public class AttRegDsp extends HttpServlet {
 	public void doPost (
 			HttpServletRequest request, HttpServletResponse response
 		) throws ServletException, IOException {
 
 		//POSTされ値を取得
-		String className = request.getParameter("className");
-		int seatRow = Integer.parseInt(request.getParameter("seatRow"));
-		int seatCol = Integer.parseInt(request.getParameter("seatCol"));
+		String paramString = request.getParameter("paramString");
+		String[] splitArray = paramString.split(",");
+		String className = splitArray[0];
 
 		if (className.equals("noSelect")) {
-			request.getRequestDispatcher("/attend/seatSet.jsp").forward(request, response);
+			request.getRequestDispatcher("/attend/attReg.jsp").forward(request, response);
 		}
 
-		//ヘッダー部登録（bean化した府が良い？）
+		int seatRow = Integer.parseInt(splitArray[1]);
+		int seatCol = Integer.parseInt(splitArray[2]);
+//		System.out.println("class:" + className + " row:" + seatRow + " col:" + seatCol);
+
+		//ヘッダー部登録（bean化した方が良い？）
 		SeatHeader sh = new SeatHeader();
 		sh.setClassName(className);
 		sh.setSeatRow(seatRow);
@@ -40,6 +44,9 @@ public class SeatSetDsp extends HttpServlet {
 		int grade = Integer.parseInt(className.substring(0, endIndex));
 		int classNo = Integer.parseInt(className.substring(endIndex + 1));
 
+		//座席配置情報取得
+
+
 		//今年度取得用当日日付
 	    long miliseconds = System.currentTimeMillis();
 	    Date date = new Date(miliseconds);
@@ -47,8 +54,8 @@ public class SeatSetDsp extends HttpServlet {
 
 		try {
 			//学生座席情報取得
-			ClassC99DAO classDao = new ClassC99DAO();
-			List<StudentExp> stu = classDao.searchByNo(grade, classNo, date);
+			Attendance99DAO classDao = new Attendance99DAO();
+			List<StudentExp> stu = classDao.searchByClass(grade, classNo, date);
 
 			request.setAttribute("stuList", stu);
 
@@ -56,9 +63,7 @@ public class SeatSetDsp extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.getRequestDispatcher("/attend/seatSetDsp.jsp")
-			.forward(request, response);
-
+		request.getRequestDispatcher("/attend/attRegDsp.jsp").forward(request, response);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
