@@ -122,7 +122,7 @@ public class ClassC99DAO extends Dao {
 			st.setInt(1, vertical);
 			st.setInt(2, horizontal);
 			st.setInt(3, classId);
-			System.out.println("class_id99:"+classId+" vertical99:"+vertical+" horizontal99:"+horizontal);
+			//System.out.println("class_id99:"+classId+" vertical99:"+vertical+" horizontal99:"+horizontal);
 			st.executeUpdate();
 //			int rs=st.executeUpdate();
 

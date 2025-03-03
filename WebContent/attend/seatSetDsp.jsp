@@ -67,8 +67,13 @@ if(numOfSeats < stuListSize){
 <button type="button" class="operation-button" id="seatEntryBtn">登録</button>
 
 <div  class="setTable">
-<table class="test-table" border="1" id="studentsTable">
-	<thead><th>学生番号</th><th>学生氏名</th><th>座席番号</th></thead>
+<div class="entrySeat">
+<table class="entryTable" border="1" id="studentsTable">
+	<thead><tr>
+		<th class="entrySeatId">学生番号</th>
+		<th class="entrySeatName">学生氏名</th>
+		<th class="entrySeatNo" class="entrySeatId">座席番号</th>
+	</tr></thead>
 	<tbody>
 	<%
 	for (StudentExp stu:stuList) {
@@ -81,9 +86,9 @@ if(numOfSeats < stuListSize){
 		}
 	%>
 		<tr>
-			<td><input type="text" name="studentId" class="noframe" readonly value="<%=stu.getStudentId() %>"></td>
-			<td><%=stu.getStudentName() %></td>
-			<td><input type="number" name="seatNo" value="<%=seatNoDsp %>" min="1" max="<%=numOfSeats%>"></td>
+			<td class="entrySeatId"><input type="text" name="studentId" class="noframe" readonly value="<%=stu.getStudentId() %>"></td>
+			<td class="entrySeatName"><%=stu.getStudentName() %></td>
+			<td class="entrySeatNo"><input type="number" name="seatNo" value="<%=seatNoDsp %>" min="1" max="<%=numOfSeats%>"></td>
 			<input type="hidden" name="classId" value="<%=stu.getClassHistoryList().getClassId() %>">
 		</tr>
 
@@ -91,10 +96,10 @@ if(numOfSeats < stuListSize){
 	 } %>
 	</tbody>
 </table>
-
+</div>
 <br>
-
-<table class="test-table" border="1">
+<div class="displaySeat">
+<table class="displayTable" border="1">
 	<caption><h3>変更前の座席位置</h3></caption>
 	<tbody>
 	<%
@@ -124,6 +129,7 @@ if(numOfSeats < stuListSize){
 	<tr><td class="space" colspan="<%= maxCol %>"></td></tr>
 	<tr><td class="platform" colspan="<%= maxCol %>">教壇</td></tr>
 </table>
+</div>
 </div>
 <br>
 <a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>

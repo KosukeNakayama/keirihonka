@@ -3,11 +3,44 @@
   align-items: flex-start;
 }
 
-.test-table {
+.entrySeat{
+	table-layout: fixed;
+}
+
+.displaySeat{
+	flex: 1;
+}
+
+.entryTable {
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 30px;
+}
+
+.displayTable {
   border-collapse: collapse;
   margin: 30px;
 }
 
+/*
+td.entrySeatId {
+	width: 100px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+td.entrySeatName {
+	width: 250px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+td.entrySeatNo {
+	width: 250px;
+	text-align: left;
+	vertical-align: middle;
+}
+*/
 td.seatTable {
 	width: 80px;
 	height: 50px;
@@ -35,6 +68,6 @@ td.space {
 }
 
 .alert {
-    font-size: 12px;
+    font-size: 15px;
     color: #ff0000;
 }

@@ -45,7 +45,7 @@ public class AttRegExe extends HttpServlet {
 				String studentId = "";
 				String status = "";
 				String memo = "";
-				System.out.println("\nstudent:" + student);
+//				System.out.println("\nstudent:" + student);
 
 				//一人分のデータを[studentId, status, memo]に分割（区切り文字 ','）しelements配列にセット
 				List<String> elements = Arrays.asList(student.split(","));
