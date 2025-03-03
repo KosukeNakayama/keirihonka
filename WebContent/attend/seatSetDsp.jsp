@@ -24,7 +24,6 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <meta http-equiv="Cache-Control" content="no-store">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
-<link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 
 <title>座席情報設定</title>
 </head>
@@ -38,10 +37,10 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
-<select name="className" disabled>
+<select name="className" readonly>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
-<input type="submit" class="operation-button" id="confirmBtn" value="選択" disabled>
+<input type="submit" id="confirmBtn" value="選択" disabled>
 
 <br>
 <div>
@@ -64,7 +63,7 @@ if(numOfSeats < stuListSize){
 %>
 </span>
 <br>
-<button type="button" class="operation-button" id="seatEntryBtn">登録</button>
+<button type="button" id="seatEntryBtn">登録</button>
 
 <div  class="setTable">
 <table class="test-table" border="1" id="studentsTable">

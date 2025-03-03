@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ClassC;
-import dao.ClassC99DAO;
+import dao.Attendance99DAO;
 
 @WebServlet(urlPatterns={"/servlet/attend/AttReg"})
 public class AttReg extends HttpServlet {
@@ -25,11 +25,11 @@ public class AttReg extends HttpServlet {
 		    Date date = new Date(miliseconds);
 
 			// ClassC99DAO:クラス一覧取得テスト用DAO
-			ClassC99DAO dao = new ClassC99DAO();
-			List<ClassC> list = dao.selectAll(date);
+			Attendance99DAO dao = new Attendance99DAO();
+			List<ClassC> list = dao.selectAyll(studentId, date);
 
 			//クラスリストのrequest作成
-			request.setAttribute("classList", list);
+			request.setAttribute("studentList", list);
 
 		} catch (Exception e) {
 			e.printStackTrace();

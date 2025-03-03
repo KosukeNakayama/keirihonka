@@ -5,11 +5,8 @@ public class Score implements java.io.Serializable {
 
 	private String studentId;
     private String subjectId;
-    //追加
-    private String subjectName;
-    private String studentName;
     private int classId;
-    private int score=-1;
+    private int score;
     private int year;
     private int month;
 
@@ -24,19 +21,6 @@ public class Score implements java.io.Serializable {
 	}
 	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
-	}
-	//追加
-	public String getSubjectName() {
-		return subjectName;
-	}
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
-	public String getStudentName(){
-		return studentName;
-	}
-	public void setStudentName(String studentName){
-		this.studentName=studentName;
 	}
 	public int getClassId() {
 		return classId;
