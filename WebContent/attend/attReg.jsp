@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
-<title>出欠入力</title>
+<title>出欠入力（当日）</title>
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>

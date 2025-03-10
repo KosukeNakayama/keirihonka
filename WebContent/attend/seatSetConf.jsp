@@ -3,7 +3,7 @@
 <%@page import="bean.StudentExp, bean.ClassHistory, servlet.attend.SeatHeader" %>
 <%@page import="java.util.HashMap, java.util.Map, java.util.List, java.util.Objects"%>
 <%
-List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuList");
+List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuListConf");
 int stuListSize = stuList.size();
 
 //画面情報引継ぎ
@@ -34,12 +34,11 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <!-- コメント追加 -->
 
 
-<!--  <form method="POST" action="SeatSetExe"  name="seatEntryForm"  onSubmit="checkEntry()"> -->
-<form method="POST" action="SeatSetConf"  name="seatEntryForm"  onSubmit="checkEntry()">
+<form method="POST" action="SeatSetExe"  name="seatEntryForm"  onSubmit="checkEntry()">
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
-<select name="className" readonly>
+<select name="className" disabled>
 	<option value="<%= sh.getClassName() %>"><%= sh.getClassName() %></option>
 </select>
 <input type="submit" class="operation-button" id="confirmBtn" value="選択" disabled>
@@ -58,17 +57,10 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 
 <input type="hidden" id="numOfSeats" value="<%= numOfSeats %>">
 <span class="alert">
-<%
-if(numOfSeats < stuListSize){
-	out.println("学生数("+ stuListSize +")が座席数("+ numOfSeats +")より多くなっています");
-} else if(stuListSize == 0){
-	out.println("今年度の" + sh.getClassName() + "の学生情報が登録されていません");
-}
-%>
+座席を確認して登録ボタンを押してください　※修正は戻るボタンで操作
 </span>
 <br>
-<button type="button" class="operation-button" id="seatEntryBtn">確認</button>
-<!-- <input type="submit" class="operation-button" value="確認"> -->
+<button type="button" class="operation-button" id="seatEntryBtn">登録</button>
 
 <div  class="setTable">
 <div class="entrySeat">
@@ -92,9 +84,8 @@ if(numOfSeats < stuListSize){
 		<tr>
 			<td class="entrySeatId"><input type="text" name="studentId" class="noframe" readonly value="<%=stu.getStudentId() %>"></td>
 			<td class="entrySeatName"><%=stu.getStudentName() %></td>
-			<td class="entrySeatNo"><input type="number" name="seatNo" value="<%=seatNoDsp %>" min="1" max="<%=numOfSeats%>"></td>
+			<td class="entrySeatNo"><input type="number" name="seatNo" value="<%=seatNoDsp %>" min="1" max="<%=numOfSeats%>" readonly></td>
 			<input type="hidden" name="classId" value="<%=stu.getClassHistoryList().getClassId() %>">
-			<input type="hidden" name="studentName" value="<%= stu.getStudentName() %>">
 		</tr>
 
 	<%		studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
@@ -105,7 +96,9 @@ if(numOfSeats < stuListSize){
 <br>
 <div class="displaySeat">
 <table class="displayTable" border="1">
-	<caption><h3>座席位置</h3></caption>
+	<caption>
+		<h3>座席位置</h3>
+	</caption>
 	<tbody>
 	<%
 	int startNo = numOfSeats - maxCol + 1;
@@ -117,11 +110,11 @@ if(numOfSeats < stuListSize){
 	<%
 			//座席配置図で、表示Noに学生が登録済みの場合は氏名も表示
 			String stringJ = String.valueOf(j);
-			//if(Objects.isNull(studentsMap.get(stringJ))) {
+			if(Objects.isNull(studentsMap.get(stringJ))) {
 				out.print(j);
-			//} else {
-			//	out.print(stringJ + "<br>" + studentsMap.get(stringJ));
-			//}
+			} else {
+				out.print(stringJ + "<br>" + studentsMap.get(stringJ));
+			}
 	%>		</td>
 
 	<% } %>
@@ -139,6 +132,6 @@ if(numOfSeats < stuListSize){
 <br>
 <a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
 </form>
-<script src="../../static/js/seatConfirmNoMsg.js"></script>
+<script src="../../static/js/seatConfirm.js"></script>
 </body>
 </html>

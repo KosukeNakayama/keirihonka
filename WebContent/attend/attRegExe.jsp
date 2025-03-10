@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
 <link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
-<title>座席情報設定</title>
+<title>出欠入力（当日）</title>
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>
