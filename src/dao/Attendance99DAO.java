@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import bean.Attendance;
 import bean.ClassHistory;
+import bean.Holiday;
 import bean.StudentExp;
 import servlet.attend.SchoolYear;
 
@@ -39,7 +40,7 @@ public class Attendance99DAO extends Dao {
 					+"SELECT class_id FROM class "
 						+ "WHERE grade = ? AND class_no = ? AND school_year = ? "
 						+ "ORDER BY start_date DESC LIMIT 1"
-				+")"
+				+ ")"
 			+ "ORDER BY student.student_id"
 		);
 
@@ -203,6 +204,49 @@ public class Attendance99DAO extends Dao {
 		con.close();
 
 		return;
+	}
+
+	//座席情報取得
+	public List<Holiday> searchHolidayByToday(int grade, int classNo, Date date) throws Exception {
+
+		List<Holiday> list=new ArrayList<>();
+		Connection con=getConnection();
+
+		//当日日付
+		Date today = SchoolYear.returnToday(date);
+
+		//今年度を取得
+		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
+
+		//対象クラス休日取得
+		PreparedStatement st=con.prepareStatement(
+			"SELECT * FROM holiday "
+				+ "WHERE holiday = ? "
+				+ "AND class_id = ( "
+					+"SELECT class_id FROM class "
+						+ "WHERE grade = ? AND class_no = ? AND school_year = ? "
+						+ "ORDER BY start_date DESC LIMIT 1"
+				+ ")"
+		);
+
+		st.setDate(1, today);
+		st.setInt(2, grade);
+		st.setInt(3, classNo);
+		st.setInt(4, inputSchoolYear);
+		ResultSet rs=st.executeQuery();
+
+		while (rs.next()) {
+			Holiday hol = new Holiday();
+			hol.setHoliday(rs.getDate("holiday"));
+			hol.setClassId(rs.getInt("class_id"));
+			hol.setManaged(rs.getBoolean("is_manage"));
+			list.add(hol);
+		}
+
+		st.close();
+		con.close();
+
+		return list;
 	}
 
 

@@ -3,6 +3,7 @@
 <%@page import="bean.StudentExp, bean.ClassHistory, bean.ClassHistory, servlet.attend.SeatHeader" %>
 <%@page import="java.util.HashMap, java.util.Map, java.util.List, java.util.Objects"%>
 <%
+boolean isHoliday = (boolean)request.getAttribute("isHoliday");
 List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuList");
 int stuListSize = stuList.size();
 
@@ -11,6 +12,8 @@ SeatHeader sh = (SeatHeader)request.getAttribute("seatHeader");
 int maxRow = sh.getSeatRow();
 int maxCol = sh.getSeatCol();
 int numOfSeats = maxRow * maxCol;
+String msg = "";
+String btnStatus = "";
 
 //座席配置表示時にseatNo->studentIdeを取得するためのMap
 Map<String, String>idMap = new HashMap<String, String>();
@@ -51,12 +54,18 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <input type="hidden" id="numOfSeats" value="<%= numOfSeats %>">
 
 <br><br>
-<div style="color: red; font-weight: bold;">
-出欠設定後、登録ボタンを忘れずに！
-</div>
-
+<%
+if (isHoliday) {
+	msg = "本日は休日設定のため登録できません";
+	btnStatus = "disabled";
+} else {
+	msg = "出欠設定後、登録ボタンを忘れずに！";
+}
+%>
+<div style="color: red; font-weight: bold;"><%= msg %></div>
 <input type="hidden" name="attEntry" id="attEntry" value=""></input>
-<button type="button" class="entry-button" id="attEntryBtn">登録</button>
+<button type="button" class="entry-button" id="attEntryBtn" <%= btnStatus %>>登録</button>
+
 <br>
 <p id="date">
 	<span id="beforeEl" >◀</span>
