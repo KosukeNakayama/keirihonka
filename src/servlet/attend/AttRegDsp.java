@@ -61,12 +61,13 @@ public class AttRegDsp extends HttpServlet {
 			//クラス休日なら
 			if (hol.size() == 0) {
 				//通常日を登録
-				request.setAttribute("isHoliday", isHoliday);
+//				request.setAttribute("isHoliday", isHoliday);
 			} else {
 				//休日を登録
 				isHoliday = true;
-				request.setAttribute("isHoliday", isHoliday);
+//				request.setAttribute("isHoliday", isHoliday);
 			}
+			request.setAttribute("isHoliday", isHoliday);
 
 			//学生座席情報取得
 			Attendance99DAO classDao = new Attendance99DAO();
