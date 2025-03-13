@@ -20,7 +20,7 @@ import dao.StudentDao;
 /**
  * Servlet implementation class StuRegCSV
  */
-@WebServlet("/StuRegCSV")@MultipartConfig(
+@WebServlet("/student/StuRegCSV")@MultipartConfig(
 		maxFileSize=10000000,
 		maxRequestSize=10000000,
 		fileSizeThreshold=10000000
@@ -45,7 +45,7 @@ public class StuRegCSV extends HttpServlet {
 		String line;
 		ArrayList<Student> stuList = new ArrayList();
 		StudentDao stuDao = new StudentDao();
-		int maxId = stuDao.getStundetMaxId();
+		int maxId = stuDao.getStudentMaxID();
 
 		while ((line = br.readLine()) != null) {
 			String[] data = line.split(",");
@@ -54,7 +54,7 @@ public class StuRegCSV extends HttpServlet {
 			stu.setStudentName(data[0]);
 			stu.setCourseId(Integer.parseInt(data[1]));
 			stu.setEnrollmentYear(2024);
-			stu.setStudentId(++maxId);
+			stu.setStudentId(String.valueOf(++maxId));
 			stuList.add(stu);
 		}
 

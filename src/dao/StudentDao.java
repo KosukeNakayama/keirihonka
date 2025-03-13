@@ -50,4 +50,84 @@ public class StudentDao extends Dao{
 		return line;
 	}
 
+	//学番の最大値の取得
+	public int getStudentMaxID() throws Exception {
+		Connection con=getConnection();
+
+		PreparedStatement st=con.prepareStatement(
+				"SELECT MAX(STUDENT_ID) as max FROM STUDENT");
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		int max = Integer.parseInt(rs.getString("max"));
+		st.close();
+		con.close();
+		return max;
+	}
+
+	//学生検索　学生番号
+	public List<Student> searchById(String student_id) throws Exception {
+		List<Student> list=new ArrayList<>();
+
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+			"select * from student where name like ?");
+		st.setString(1, student_id);
+	    ResultSet rs = st.executeQuery();
+
+		Student p=new Student();
+		p.setStudentId(rs.getString("student_id"));
+		p.setStudentName(rs.getString("student_name"));
+		p.setEnrollmentYear(rs.getInt("enrollment_year"));
+		p.setCourseId(rs.getInt("course_id"));
+		p.setGraduationDay(rs.getDate("graduation_day"));
+		p.setWithdrawalDay(rs.getDate("withdrawl_day"));
+		list.add(p);
+
+		st.close();
+		con.close();
+
+		return list;
+	}
+
+
+	//学番の最大値の取得
+	public int getStudentMaxID() throws Exception {
+		Connection con=getConnection();
+
+		PreparedStatement st=con.prepareStatement(
+				"SELECT MAX(STUDENT_ID) as max FROM STUDENT");
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		int max = Integer.parseInt(rs.getString("max"));
+		st.close();
+		con.close();
+		return max;
+	}
+
+	//学生検索　学生番号
+	public List<Student> searchById(String student_id) throws Exception {
+		List<Student> list=new ArrayList<>();
+
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+			"select * from student where name like ?");
+		st.setString(1, student_id);
+	    ResultSet rs = st.executeQuery();
+
+		Student p=new Student();
+		p.setStudentId(rs.getString("student_id"));
+		p.setStudentName(rs.getString("student_name"));
+		p.setEnrollmentYear(rs.getInt("enrollment_year"));
+		p.setCourseId(rs.getInt("course_id"));
+		p.setGraduationDay(rs.getDate("graduation_day"));
+		p.setWithdrawalDay(rs.getDate("withdrawl_day"));
+		list.add(p);
+
+		st.close();
+		con.close();
+
+		return list;
+	}
+
+
 }
