@@ -1,7 +1,6 @@
 package servlet.student;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,15 +16,20 @@ public class StuReg extends HttpServlet {
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
 
 		StudentDao stuDao=new StudentDao();
-		int maxId=stuDao.getStudentMaxID();
+		int maxId = 0;
+		try {
+			maxId = stuDao.getStudentMaxID();
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 		Student stu = new Student();
-		stu.setStudentId(maxId+1);
+		stu.setStudentId(String.valueOf(maxId + 1));
 
-		request.getRequestDispatcher("stuReg.jsp")
+		request.getRequestDispatcher("/student/stuReg.jsp")
 		.forward(request, response);
 
 	}

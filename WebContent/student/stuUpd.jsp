@@ -13,7 +13,7 @@
 <p>学生番号</p>
 <p>学生番号入力</p>
 
-<form action="" method=post>
+<form action="stuupd" method=post>
 <input type="number" maxlength="7" name="studentId" value="">
 
 <p><input type="submit" value="検　索"></p>
