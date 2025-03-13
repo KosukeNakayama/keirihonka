@@ -19,7 +19,7 @@
 
 <!-- DBから取得 -->
 <label>クラス</label>
-<select name="paramString">
+<select name="classString">
 	<option value="noSelect" selected>--選択--</option>
 	<c:forEach var="classList" items="${classList}">
 		<option value="${classList.className += ',' += classList.vertical += ',' += classList.horizontal}">${classList.className}</option>

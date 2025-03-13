@@ -45,7 +45,13 @@ public class StuRegCSV extends HttpServlet {
 		String line;
 		ArrayList<Student> stuList = new ArrayList();
 		StudentDao stuDao = new StudentDao();
-		int maxId = stuDao.getStudentMaxID();
+		int maxId = 0;
+		try {
+			maxId = stuDao.getStudentMaxID();
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 		while ((line = br.readLine()) != null) {
 			String[] data = line.split(",");

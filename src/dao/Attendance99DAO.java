@@ -19,6 +19,69 @@ import servlet.attend.SchoolYear;
 
 public class Attendance99DAO extends Dao {
 
+	//出欠一覧取得
+	public List<StudentExp> searchByCurrentMonth(int grade, int classNo, Date date) throws Exception {
+
+		List<StudentExp> list=new ArrayList<>();
+		Connection con=getConnection();
+
+		//当日日付
+//		Date today = SchoolYear.returnToday(date);
+
+		//今年度を取得
+		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
+
+		//対象クラス学生一覧取得（当月のみ）
+		PreparedStatement st=con.prepareStatement(
+			"SELECT student.student_id, student_name, class_id, seat_no, date, status, memo FROM student "
+				+ "JOIN classhistory ON student.student_id = classhistory.student_id "
+				+ "LEFT JOIN attendance ON student.student_id = attendance.student_id "
+				+ "						AND date_part('month',now())=date_part('month', date)  "
+				+ "WHERE class_id = ( "
+					+"SELECT class_id FROM class "
+						+ "WHERE grade = ? AND class_no = ? AND school_year = ? "
+						+ "ORDER BY start_date DESC LIMIT 1"
+				+ ")"
+			+ "ORDER BY student.student_id"
+		);
+
+//		st.setDate(1, today);
+		st.setInt(1, grade);
+		st.setInt(2, classNo);
+		st.setInt(3, inputSchoolYear);
+		ResultSet rs=st.executeQuery();
+
+		while (rs.next()) {
+			StudentExp stu = new StudentExp();
+			stu.setStudentId(rs.getString("student_id"));
+			stu.setStudentName(rs.getString("student_name"));
+
+			ClassHistory ch = new ClassHistory();
+			ch.setStudentId(rs.getString("student_id"));
+			ch.setClassId(rs.getInt("class_id"));
+			ch.setSeatNo(rs.getInt("seat_no"));
+			stu.setClassHistoryList(ch);
+
+			Attendance at = new Attendance();
+			at.setStudentId(rs.getString("student_id"));
+			at.setDate(rs.getDate("date"));
+			if (Objects.nonNull(rs.getString("status"))){
+				char status[] = rs.getString("status").toCharArray();
+				at.setStatus(status[0]);
+			}
+			at.setMemo(rs.getString("memo"));
+			stu.setAttendanceList(at);
+
+			list.add(stu);
+		}
+
+		st.close();
+		con.close();
+
+		return list;
+	}
+
+
 	//座席情報取得
 	public List<StudentExp> searchByClass(int grade, int classNo, Date date) throws Exception {
 
@@ -206,7 +269,7 @@ public class Attendance99DAO extends Dao {
 		return;
 	}
 
-	//座席情報取得
+	//当日休日情報取得
 	public List<Holiday> searchHolidayByToday(int grade, int classNo, Date date) throws Exception {
 
 		List<Holiday> list=new ArrayList<>();
@@ -249,5 +312,47 @@ public class Attendance99DAO extends Dao {
 		return list;
 	}
 
+	//当日休日情報取得
+	public List<Holiday> searchHolidayByMonth(int grade, int classNo, Date date) throws Exception {
+
+		List<Holiday> list=new ArrayList<>();
+		Connection con=getConnection();
+
+		//当日日付
+		Date today = SchoolYear.returnToday(date);
+
+		//今年度を取得
+		int inputSchoolYear = SchoolYear.returnSchoolYear(date);
+
+		//対象クラス休日取得
+		PreparedStatement st=con.prepareStatement(
+			"SELECT * FROM holiday "
+				+ "WHERE class_id = ( "
+					+"SELECT class_id FROM class "
+						+ "WHERE grade = ? AND class_no = ? AND school_year = ? "
+						+ "ORDER BY start_date DESC LIMIT 1"
+					+ ")"
+				+ " AND  date_part('month',now())=date_part('month', holiday)  "
+				+ " ORDER BY holiday "
+		);
+
+		st.setInt(1, grade);
+		st.setInt(2, classNo);
+		st.setInt(3, inputSchoolYear);
+		ResultSet rs=st.executeQuery();
+
+		while (rs.next()) {
+			Holiday hol = new Holiday();
+			hol.setHoliday(rs.getDate("holiday"));
+			hol.setClassId(rs.getInt("class_id"));
+			hol.setManaged(rs.getBoolean("is_manage"));
+			list.add(hol);
+		}
+
+		st.close();
+		con.close();
+
+		return list;
+	}
 
 }
