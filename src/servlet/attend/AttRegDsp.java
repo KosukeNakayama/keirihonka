@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Holiday;
 import bean.StudentExp;
 import dao.Attendance99DAO;
 
@@ -20,10 +21,11 @@ public class AttRegDsp extends HttpServlet {
 		) throws ServletException, IOException {
 
 		//POSTされ値を取得
-		String paramString = request.getParameter("paramString");
-		String[] splitArray = paramString.split(",");
+		String classString = request.getParameter("classString");
+		String[] splitArray = classString.split(",");
 		String className = splitArray[0];
 
+		//クラス未選択の場合は初期画面に戻る
 		if (className.equals("noSelect")) {
 			request.getRequestDispatcher("/attend/attReg.jsp").forward(request, response);
 		}
@@ -44,20 +46,34 @@ public class AttRegDsp extends HttpServlet {
 		int grade = Integer.parseInt(className.substring(0, endIndex));
 		int classNo = Integer.parseInt(className.substring(endIndex + 1));
 
-		//座席配置情報取得
-
-
 		//今年度取得用当日日付
 	    long miliseconds = System.currentTimeMillis();
 	    Date date = new Date(miliseconds);
 
 
 		try {
+
+			//クラス休日チェック
+			boolean isHoliday = false;
+			Attendance99DAO holidayDao = new Attendance99DAO();
+			List<Holiday> hol = holidayDao.searchHolidayByToday(grade, classNo, date);
+
+			//クラス休日なら
+			if (hol.size() == 0) {
+				//通常日を登録
+//				request.setAttribute("isHoliday", isHoliday);
+			} else {
+				//休日を登録
+				isHoliday = true;
+//				request.setAttribute("isHoliday", isHoliday);
+			}
+			request.setAttribute("isHoliday", isHoliday);
+
 			//学生座席情報取得
 			Attendance99DAO classDao = new Attendance99DAO();
 			List<StudentExp> stu = classDao.searchByClass(grade, classNo, date);
-
 			request.setAttribute("stuList", stu);
+
 
 		} catch (Exception e) {
 			e.printStackTrace();

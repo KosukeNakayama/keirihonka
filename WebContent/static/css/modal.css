@@ -39,7 +39,8 @@ textarea {
 }
 
 .modal {
-  width: 20%;
+  /* width: 30%; */
+  width: 250px;
   padding: 0px 5px 5px 10px;
   background: whitesmoke;
   display: none;

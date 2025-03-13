@@ -3,6 +3,7 @@
 <%@page import="bean.StudentExp, bean.ClassHistory, bean.ClassHistory, servlet.attend.SeatHeader" %>
 <%@page import="java.util.HashMap, java.util.Map, java.util.List, java.util.Objects"%>
 <%
+boolean isHoliday = (boolean)request.getAttribute("isHoliday");
 List<StudentExp> stuList = (List<StudentExp>)request.getAttribute("stuList");
 int stuListSize = stuList.size();
 
@@ -11,6 +12,8 @@ SeatHeader sh = (SeatHeader)request.getAttribute("seatHeader");
 int maxRow = sh.getSeatRow();
 int maxCol = sh.getSeatCol();
 int numOfSeats = maxRow * maxCol;
+String msg = "";
+String btnStatus = "";
 
 //座席配置表示時にseatNo->studentIdeを取得するためのMap
 Map<String, String>idMap = new HashMap<String, String>();
@@ -33,14 +36,14 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <link rel="stylesheet" href="../../static/css/modal.css" type="text/css">
 <link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 
-<title>座席情報設定</title>
+<title>出欠入力（当日）</title>
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
 
-<form method="POST" action="AttRegExe"  name="seatEntryForm"  onSubmit="checkEntry()">
+<form method="POST" action="AttRegExe"  name="attEntryForm"  onSubmit="checkEntry()">
 
 <!-- Attributeから取得 -->
 <label>クラス</label>
@@ -50,6 +53,20 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <input type="submit"  class="operation-button" id="confirmBtn" value="選択" disabled>
 <input type="hidden" id="numOfSeats" value="<%= numOfSeats %>">
 
+<br><br>
+<%
+if (isHoliday) {
+	msg = "本日は休日設定のため登録できません";
+	btnStatus = "disabled";
+} else {
+	msg = "出欠設定後、登録ボタンを忘れずに！";
+}
+%>
+<div style="color: red; font-weight: bold;"><%= msg %></div>
+<input type="hidden" name="attEntry" id="attEntry" value=""></input>
+<button type="button" class="entry-button" id="attEntryBtn" <%= btnStatus %>>登録</button>
+
+<br>
 <p id="date">
 	<span id="beforeEl" >◀</span>
 	<span id="currentEl"></span>
@@ -69,6 +86,7 @@ for (StudentExp stu:stuList) {
 		seatNoDsp = Integer.toString(stu.getClassHistoryList().getSeatNo());
 	}
 
+	//項目表示のためMapにデータを格納
 	idMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentId());
 	studentsMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), stu.getStudentName());
 	statusMap.put(Integer.toString(stu.getClassHistoryList().getSeatNo()), String.valueOf(stu.getAttendanceList().getStatus()));
@@ -88,11 +106,19 @@ for (StudentExp stu:stuList) {
 			String stringJ = String.valueOf(j);
 			String cellId = "cell" + String.format("%03d", j);
 			String studentId = idMap.get(stringJ);
+			String memo = "";
+			if(Objects.nonNull(memoMap.get(stringJ))) {
+				memo = memoMap.get(stringJ);
+			}
+			//System.out.println(memo);
 
 			String statusColor = "white";
 			if(Objects.nonNull(studentsMap.get(stringJ))) {
 
 			switch(statusMap.get(stringJ)){
+				case "0":
+		    		statusColor = "white";
+		    	break;
 				case "1":
 			    	statusColor = "red";
 			    	break;
@@ -110,7 +136,10 @@ for (StudentExp stu:stuList) {
 			}}
 			%>
 			<td class="js-modalInput" name="att" data-modal="att" id="<% out.print(cellId); %>"
-				style="background-color: <% out.print(statusColor); %>"  data-value ="<% out.println(studentId); %>">
+				style="background-color: <% out.print(statusColor); %>"
+				data-student ="<% out.println(studentId); %>"
+				data-memo ="<% out.println(memo); %>"
+			>
 	<%
 			//座席配置図で、表示Noに学生が登録済みの場合は氏名も表示
 			//String stringJ = String.valueOf(j);
@@ -138,29 +167,26 @@ for (StudentExp stu:stuList) {
 <div id="js-overlay" class="overlay">
     <div id="att" class="js-modal modal">
     <p class="modal-header"><span class="modal-cancel-btn" id="cancelBtn">×</span></p>
-      <form id="prompt-form">
+      <div id="prompt-form">
         <label><input type="radio" name="status" value="0">出席　□</label>
         <label><input type="radio" name="status" value="1">欠席　<span style="color: red">■</span></label>
         <label><input type="radio" name="status" value="2">遅刻　<span style="color: yellow">■</span></label>
         <label><input type="radio" name="status" value="3">早退　<span style="color: violet">■</span></label>
         <label><input type="radio" name="status" value="4">他欠　<span style="color: greenyellow">■</span></label>
         <label><input type="radio" name="status" value="5">遅刻早退　<span style="color: orange">■</span></label>
-        <label>コメント<input type="text" name="comment" placeholder="コメントを入力" id="text-value"></label>
+        <label>メモ<input type="text" name="comment" placeholder="メモを入力" id="text-value"></label>
         <label><span class="operation-button" id="entryBtn">登録</span></label>
-      </form>
+      </div>
     </div>
 </div>
 
 
-<br>
-<input type="hidden" name="attEntry" id="attEntry" value=""></input>
-<button  class="operation-button" type="button" id="seatEntryBtn">登録</button>
 
 <br><br>
 <a href="/keirihonka/servlet/attend/AttReg">メニューに戻る</a>
 </form>
 
-<script src="../../static/js/seatConfirm.js"></script>
+<script src="../../static/js/attConfirm.js"></script>
 <script src="../../static/js/date.js"></script>
 <script src="../../static/js/buttons.js"></script>
 <script src="../../static/js/modal.js"></script>

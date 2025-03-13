@@ -10,20 +10,30 @@
             const target = el.getAttribute('data-modal')
             document.getElementById('js-overlay').classList.add('is-show')
             document.getElementById(target).style.display = 'block'
+
+           //登録済みのメモを表示
+           var tdID = trgEl.getAttribute("id");
+           let textBox = document.getElementById('text-value');
+           let entryMemo = document.getElementById(tdID).dataset.memo;
+           if (entryMemo != null) {
+        	   textBox.textContent = entryMemo;
+        	   textBox.value = entryMemo;
+           } else {
+        	   textBox.textContent = " ";
+        	   textBox.value = " ";
+           }
         })
     })
 
     //modal内でのform設定
     let entryBtn = document.getElementById('entryBtn');
     entryBtn.addEventListener('click', function(e){
-//    let inForm = document.getElementById('prompt-form');
-//    inForm.addEventListener("submit", function(e){
 
         //form再読み込み禁止（入力を残す）
         e.preventDefault();
 
         //選択statusを取得
-        var statusArray = document.getElementsByName('status');
+        let statusArray = document.getElementsByName('status');
         let statusValue = '';
 
         for (var i=0; i<statusArray.length; i++){
@@ -57,21 +67,22 @@
             }
         }
 
-        //入力欄データ処理
+        //出欠状況コメント入力欄データ処理
         let textBox = document.getElementById('text-value');
         let textValue = textBox.value;
+        console.log("textValue:",textValue);
 
-        let studentIdAtt = document.getElementById(tdID).dataset.value;
-        let attStatus = statusValue + ":" + textValue;
+        //指定セルのstudentIdとstatusを取得
+        let studentIdAtt = document.getElementById(tdID).dataset.student;
+        let attStatus = statusValue + "," + textValue;
 
-        console.log("tdID:" , tdID , "Att" , studentIdAtt);
-        console.log(studentIdAtt == null);
+        //入力状況を文字列にまとめてattRegDsp.jspのattEntry要素にセット
+        let attEntry = document.getElementById('attEntry');
+        attEntry.value = attEntry.value + ";" + studentIdAtt.trim() + "," + attStatus + " ";
 
-        if (studentIdAtt == null) { } else {
-        	document.getElementById('attEntry').value = document.getElementById('attEntry').value + "," + studentIdAtt + ":" + attStatus;
-        }
-        console.log(document.getElementById('attEntry').value);
+        console.log(attEntry.value);
 
+        //入力値初期化
         studentIdAtt = "";
         attStatus = "";
         textBox.value = "";

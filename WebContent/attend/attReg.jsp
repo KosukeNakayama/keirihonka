@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
-<title>出欠入力</title>
+<title>出欠入力（当日）</title>
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>
@@ -19,7 +19,7 @@
 
 <!-- DBから取得 -->
 <label>クラス</label>
-<select name="paramString">
+<select name="classString">
 	<option value="noSelect" selected>--選択--</option>
 	<c:forEach var="classList" items="${classList}">
 		<option value="${classList.className += ',' += classList.vertical += ',' += classList.horizontal}">${classList.className}</option>
