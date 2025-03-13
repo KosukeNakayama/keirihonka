@@ -21,8 +21,8 @@ public class AttRegDsp extends HttpServlet {
 		) throws ServletException, IOException {
 
 		//POSTされ値を取得
-		String paramString = request.getParameter("paramString");
-		String[] splitArray = paramString.split(",");
+		String classString = request.getParameter("classString");
+		String[] splitArray = classString.split(",");
 		String className = splitArray[0];
 
 		//クラス未選択の場合は初期画面に戻る
