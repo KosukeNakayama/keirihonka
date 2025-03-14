@@ -16,17 +16,17 @@
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
-<form method="POST" action="AttRegDsp">
+<form method="POST" action="AttReg">
 
 <!-- DBから取得 -->
 <label>クラス</label>
-<select name="paramString">
-	<option value="noSelect" selected>--選択--</option>
+<select name="classString" disabled>
+	<option value="noSelect" selected >--選択--</option>
 	<c:forEach var="classList" items="${classList}">
 		<option value="${classList.className += ',' += classList.vertical += ',' += classList.horizontal}">${classList.className}</option>
 	</c:forEach>
 </select>
-<input type="submit" class="operation-button" value="選択">
+<input type="submit" class="operation-button" value="選択" disabled>
 
 </form>
 

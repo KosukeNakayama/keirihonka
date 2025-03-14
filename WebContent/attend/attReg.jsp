@@ -30,7 +30,7 @@
 </form>
 
 <br><br>
-<a href="/keirihonka/servlet/attend/AttRegDsp">メニューに戻る</a>
+<a href="/keirihonka/servlet/attend/AttReg">メニューに戻る</a>
 
 </body>
 </html>
