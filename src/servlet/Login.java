@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.Dao;
+//ログインページ表示
+@WebServlet(urlPatterns={"/login"})
+public class Login extends HttpServlet {
 
-
-@WebServlet(urlPatterns={"/servlet/sample"})
-public class Sample extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Dao dao = new Dao();
-		try {
-			dao.test();
-		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+		request.getRequestDispatcher("/login.jsp")
+		.forward(request, response);
     }
+
+	public void doPet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
+    }
+
 }
 

@@ -33,7 +33,8 @@ public class Attendance99DAO extends Dao {
 
 		//対象クラス学生一覧取得（当月のみ）
 		PreparedStatement st=con.prepareStatement(
-			"SELECT student.student_id, student_name, class_id, seat_no, date, status, memo FROM student "
+			"SELECT student.student_id, student_name, class_id, seat_no, date, status, memo "
+			+ "FROM student "
 				+ "JOIN classhistory ON student.student_id = classhistory.student_id "
 				+ "LEFT JOIN attendance ON student.student_id = attendance.student_id "
 				+ "						AND date_part('month',now())=date_part('month', date)  "
@@ -96,7 +97,8 @@ public class Attendance99DAO extends Dao {
 
 		//対象クラス学生一覧取得
 		PreparedStatement st=con.prepareStatement(
-			"SELECT student.student_id, student_name, class_id, seat_no, date, status, memo FROM student "
+			"SELECT student.student_id, student_name, class_id, seat_no, date, status, memo , withdrawal_day "
+			+ "FROM student "
 				+ "JOIN classhistory ON student.student_id = classhistory.student_id "
 				+ "LEFT JOIN attendance ON student.student_id = attendance.student_id AND attendance.date = ? "
 				+ "WHERE class_id = ( "
@@ -104,6 +106,7 @@ public class Attendance99DAO extends Dao {
 						+ "WHERE grade = ? AND class_no = ? AND school_year = ? "
 						+ "ORDER BY start_date DESC LIMIT 1"
 				+ ")"
+				+ "AND withdrawal_day IS NULL "
 			+ "ORDER BY student.student_id"
 		);
 
@@ -117,6 +120,7 @@ public class Attendance99DAO extends Dao {
 			StudentExp stu = new StudentExp();
 			stu.setStudentId(rs.getString("student_id"));
 			stu.setStudentName(rs.getString("student_name"));
+			stu.setWithdrawalDay(rs.getDate("withdrawal_day"));
 
 			ClassHistory ch = new ClassHistory();
 			ch.setStudentId(rs.getString("student_id"));

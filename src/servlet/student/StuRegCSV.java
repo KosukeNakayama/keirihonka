@@ -60,7 +60,7 @@ public class StuRegCSV extends HttpServlet {
 			stu.setStudentName(data[0]);
 			stu.setCourseId(Integer.parseInt(data[1]));
 			stu.setEnrollmentYear(2024);
-			stu.setStudentId((String.valueOf(++maxId)));
+			stu.setStudentId(String.valueOf(++maxId));
 			stuList.add(stu);
 		}
 
