@@ -12,7 +12,7 @@
 
 <p>登録完了しました。</p>
 
-<a href="stuReg.jsp">学生登録</a><br>
+<a href="/keirihonka/stureg">学生登録</a><br>
 
 <a href="">メニュー</a>
 

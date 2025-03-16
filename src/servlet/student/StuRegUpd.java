@@ -17,7 +17,10 @@ public class StuRegUpd extends HttpServlet {
 	public void doPost (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
+
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out=response.getWriter();
+		request.setCharacterEncoding("UTF-8");
 
 		try {
 			Integer enrollmentYear=Integer.parseInt(request.getParameter("enrollmentYear"));
@@ -35,11 +38,11 @@ public class StuRegUpd extends HttpServlet {
 			int line = dao.insert(p);
 
 			if(line>0){
-			request.getRequestDispatcher("stuRegSuccess.jsp")
+			request.getRequestDispatcher("/student/stuRegSuccess.jsp")
 			.forward(request, response);
 			}
 
-			request.getRequestDispatcher("stuRegError.jsp")
+			request.getRequestDispatcher("/student/stuRegError.jsp")
 			.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace(out);

@@ -29,6 +29,7 @@ public class StuReg extends HttpServlet {
 		Student stu = new Student();
 		stu.setStudentId(String.valueOf(maxId + 1));
 
+		request.setAttribute("stu", stu);
 		request.getRequestDispatcher("/student/stuReg.jsp")
 		.forward(request, response);
 

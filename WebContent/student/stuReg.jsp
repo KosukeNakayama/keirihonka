@@ -9,9 +9,9 @@
 <body>
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
-<jsp:useBean id="stu" class="bean.Student" />
+<jsp:useBean id="stu" class="bean.Student" scope="request"/>
 
-<form action="stuRegCSV.jsp">
+<form action="/keirihonka/student/stuRegCSV.jsp">
 <p><input type="submit" value="CSVファイルを読み込む"></p>
 </form>
 
@@ -23,14 +23,17 @@
 </select>
 
 <p>学生番号</p>
-<input type="text" name="studentId" value="<%=stu.getStudentId()%>">
+<input type="text" name="studentId" value="<jsp:getProperty name="stu" property="studentId" />">
 
 <p>名前</p>
 <input type="text" name="studentName" >
 
 <p>コース名</p>
 <select name="courseId">
- <option value=1>システム開発コース</option>
+ <option value="1">高度システム開発コース</option>
+ <option value="2">システム開発コース</option>
+ <option value="3">AIシステムコース</option>
+ <option value="4">ネットワークセキュリティコース</option>
 </select>
 
 <p><input type="submit" value="登録"></p>

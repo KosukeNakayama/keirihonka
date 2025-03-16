@@ -13,22 +13,19 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form action="" method="post">
+<form action="/keirihonka/student/sturegcsvupd" method="post">
 <!-- 登録人数を送信 -->
 <input type="hidden" name="Count" value="${stuCsvList.size()}">
 
 <table border="1">
 <tr><th>お名前</th><th>コースID</th><th>入学年度</th><th>学生番号</th></tr>
-<c:forEach var="student" items="${stuCsvList}">
- 	<% ArrayList studentList = (ArrayList)request.getAttribute("stuCsvList"); %>
-    <%for(int i=1; i<=studentList.size(); i++) { %>
+<c:forEach var="student" items="${stuCsvList}" varStatus="status">
     <tr>
-        <td><input type="text" value="${student.studentName}" name="stu<%=i%>Name"></td>
-        <td><input type="text" value="${student.courseId}" name="stu<%=i%>CourseId" disabled></td>
-        <td><input type="text" value="${student.enrollmentYear}" name="stu<%=i%>EnrollmentYear" disabled></td>
-        <td><input type="text" value="${student.studentId}" name="stu<%=i%>StudentId" disabled></td>
+        <td><input type="text" value="${student.studentName}" name="stu${status.index + 1}Name"></td>
+        <td><input type="text" value="${student.courseId}" name="stu${status.index + 1}CourseId" disabled></td>
+        <td><input type="text" value="${student.enrollmentYear}" name="stu${status.index + 1}EnrollmentYear" disabled></td>
+        <td><input type="text" value="${student.studentId}" name="stu${status.index + 1}StudentId" disabled></td>
     </tr>
-    <%} %>
 </c:forEach>
 </table>
 
@@ -36,7 +33,6 @@
 </form>
 
 <a href="">メニュー</a>
-
 
 </body>
 </html>
