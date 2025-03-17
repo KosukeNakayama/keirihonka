@@ -45,29 +45,40 @@ public class ClassCDao extends Dao{
 		return list;
 	}
 
-	public ArrayList<StudentExp> getStudentCandidateList(int schoolYear, int grade, Calendar startDate) throws Exception {
-		//入学年、学年、開始日付からクラスの学生候補を取得する
+	public ArrayList<StudentExp> getStudentCandidateList(int classId) throws Exception {
+		//クラスIDからクラスの学生候補を取得する
 		ArrayList<StudentExp> list=new ArrayList<>();
 		Connection con=getConnection();
-		PreparedStatement st=con.prepareStatement(
-			"SELECT * FROM STUDENT LEFT OUTER JOIN CLASSHISTORY ON STUDENT.STUDENT_ID = CLASSHISTORY.STUDENT_ID "
+		PreparedStatement st = con.prepareStatement("SELECT * FROM CLASS WHERE CLASS_ID = ?");
+		st.setInt(1, classId);
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		int schoolYear = rs.getInt("SCHOOL_YEAR");
+		int grade = rs.getInt("GRADE");
+
+		st=con.prepareStatement(
+			"SELECT * FROM STUDENT "
+			+ "LEFT OUTER JOIN CLASSHISTORY ON STUDENT.STUDENT_ID = CLASSHISTORY.STUDENT_ID "
+			+ "LEFT OUTER JOIN CLASS ON CLASSHISTORY.CLASS_ID = CLASS.CLASS_ID "
 			+ "WHERE STUDENT.ENROLLMENT_YEAR = ? - ? +1"
 			+ " AND STUDENT.GRADUATION_DAY IS NULL"
 			+ " AND STUDENT.WITHDRAWAL_DAY IS NULL"
-			+ " AND CLASSHISTORY.END_DATE IS NULL");
+			+ " AND CLASSHISTORY.CLASS_ID <> ?"
+			+ " AND CLASSHISTORY.END_DATE IS NULL"
+			+ " ORDER BY STUDENT.STUDENT_ID");
 		st.setInt(1, schoolYear);
 		st.setInt(2, grade);
-		//st.setDate(3, new Date(startDate.getTime().getTime()));
+		st.setInt(3, classId);
 
-		//System.out.println(st.toString());
-
-		ResultSet rs=st.executeQuery();
+		rs=st.executeQuery();
 		while(rs.next()){
 			StudentExp stu = new StudentExp();
 			stu.setStudentId(rs.getString("STUDENT_ID"));
 			stu.setStudentName(rs.getString("STUDENT_NAME"));
 			ClassC cls = new ClassC();
 			cls.setClassId(rs.getInt("CLASS_ID"));
+			cls.setGrade(rs.getInt("GRADE"));
+			cls.setClassNo(rs.getInt("CLASS_NO"));
 			stu.setClassC(cls);
 			list.add(stu);
 		}
@@ -75,7 +86,7 @@ public class ClassCDao extends Dao{
 		return list;
 	}
 
-	public void regCls(String[] stuList,int schoolYear,int grade,int no,Calendar startDate) throws Exception {
+	public void regCls(int schoolYear,int grade,int no,Calendar startDate) throws Exception {
 		PreparedStatement st = null;
 		String SQL=null;
 		Connection con=null;
@@ -92,36 +103,36 @@ public class ClassCDao extends Dao{
 			st.setDate(4, new Date(startDate.getTime().getTime()));
 			st.execute();
 
-			System.out.println("Insert complete!");
-
-			//クラスIDを取得
-			st = con.prepareStatement("SELECT MAX(CLASS_ID) as CLASS_ID FROM CLASS WHERE SCHOOL_YEAR = ? "
-					+ "AND GRADE = ? "
-					+ "AND CLASS_NO = ?");
-			st.setInt(1, schoolYear);
-			st.setInt(2, grade);
-			st.setInt(3, no);
-			ResultSet rs = st.executeQuery();
-			rs.next();
-			int clsId = rs.getInt("CLASS_ID");
-
-			//②クラス履歴にINSERT
-			SQL = "INSERT INTO CLASSHISTORY VALUES ";
-			for(int i=0;i<stuList.length;i++){
-				if(i==0){
-					SQL += "(?,?,1,?,NULL)";
-				}else{
-					SQL += ",(?,?,"+(i+1)+ ",?,NULL)";
-				}
-			}
-			//System.out.println(SQL);
-			st = con.prepareStatement(SQL);
-			for(int i=0;i<stuList.length;i++){
-				st.setString(1+3*i, stuList[i]);
-				st.setInt(2+3*i, clsId);
-				st.setDate(3+3*i, new Date(startDate.getTime().getTime()));
-			}
-			st.execute();
+//			System.out.println("Insert complete!");
+//
+//			//クラスIDを取得
+//			st = con.prepareStatement("SELECT MAX(CLASS_ID) as CLASS_ID FROM CLASS WHERE SCHOOL_YEAR = ? "
+//					+ "AND GRADE = ? "
+//					+ "AND CLASS_NO = ?");
+//			st.setInt(1, schoolYear);
+//			st.setInt(2, grade);
+//			st.setInt(3, no);
+//			ResultSet rs = st.executeQuery();
+//			rs.next();
+//			int clsId = rs.getInt("CLASS_ID");
+//
+//			//②クラス履歴にINSERT
+//			SQL = "INSERT INTO CLASSHISTORY VALUES ";
+//			for(int i=0;i<stuList.length;i++){
+//				if(i==0){
+//					SQL += "(?,?,1,?,NULL)";
+//				}else{
+//					SQL += ",(?,?,"+(i+1)+ ",?,NULL)";
+//				}
+//			}
+//			//System.out.println(SQL);
+//			st = con.prepareStatement(SQL);
+//			for(int i=0;i<stuList.length;i++){
+//				st.setString(1+3*i, stuList[i]);
+//				st.setInt(2+3*i, clsId);
+//				st.setDate(3+3*i, new Date(startDate.getTime().getTime()));
+//			}
+//			st.execute();
 
 			con.commit();
 
@@ -133,5 +144,96 @@ public class ClassCDao extends Dao{
 			con.setAutoCommit(true);
 			con.close();
 		}
+	}
+
+	public ArrayList<ClassC> getClassList() throws Exception  {
+		ArrayList<ClassC> list=new ArrayList<>();
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+			"SELECT class_id,grade,class_no,school_year,start_date FROM class where end_date is null order by start_date");
+		ResultSet rs=st.executeQuery();
+		while (rs.next()) {
+			ClassC cls=new ClassC();
+			cls.setClassId(rs.getInt("class_id"));
+			cls.setSchoolYear(rs.getInt("school_year"));
+			cls.setGrade(rs.getInt("grade"));
+			cls.setClassNo(rs.getInt("class_no"));
+			cls.setStartDate(rs.getDate("start_date"));
+			list.add(cls);
+		}
+		st.close();
+		con.close();
+
+		return list;
+	}
+
+	public void regClsStu(int classId, String[] stuIds, Calendar dayOfChange) throws Exception {
+		PreparedStatement st = null;
+		String SQL=null;
+		Connection con=null;
+		try{
+			con=getConnection();
+			con.setAutoCommit(false);
+			//前のクラスの終了日を更新する
+			SQL = "UPDATE CLASSHISTORY SET END_DATE = ? WHERE END_DATE IS NULL "
+					+ "AND STUDENT_ID IN (";
+			for(int i=0;i<stuIds.length;i++){
+				if(i==0){
+					SQL += "?";
+				}else{
+					SQL += ",?";
+				}
+			}
+			SQL += ")";
+			st = con.prepareStatement(SQL);
+			System.out.println(st);
+			st.setDate(1,new Date(dayOfChange.getTime().getTime()));
+			for(int i=0;i<stuIds.length;i++){
+				st.setString(i+2,stuIds[i]);
+			}
+			st.execute();
+
+			//クラス履歴にINSERT
+			SQL = "INSERT INTO CLASSHISTORY VALUES ";
+			for(int i=0;i<stuIds.length;i++){
+				if(i==0){
+					SQL += "(?,?,1,?,NULL)";
+				}else{
+					SQL += ",(?,?,"+(i+1)+ ",?,NULL)";
+				}
+			}
+			//System.out.println(SQL);
+			st = con.prepareStatement(SQL);
+			for(int i=0;i<stuIds.length;i++){
+				st.setString(1+3*i, stuIds[i]);
+				st.setInt(2+3*i, classId);
+				st.setDate(3+3*i, new Date(dayOfChange.getTime().getTime()));
+			}
+			st.execute();
+			con.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			con.rollback();
+			throw new Exception();
+		}finally{
+			con.setAutoCommit(true);
+			con.close();
+		}
+	}
+
+	public ClassC searchById(int class_id) throws Exception{
+		ClassC cls = new ClassC();
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+				"SELECT * FROM class where class_id= ?");
+		st.setInt(1, class_id);
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		cls.setClassId(rs.getInt("CLASS_ID"));
+		cls.setSchoolYear(rs.getInt("school_year"));
+		cls.setGrade(rs.getInt("grade"));
+		cls.setClassNo(rs.getInt("class_no"));
+		cls.setStartDate(rs.getDate("start_date"));
+		return cls;
 	}
 }

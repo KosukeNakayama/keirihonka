@@ -1,9 +1,7 @@
 package servlet.classC;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -17,7 +15,7 @@ import bean.StudentExp;
 import dao.ClassCDao;
 import util.Checker;
 
-@WebServlet(urlPatterns={"/Class/ClsRegGetStu"})
+@WebServlet(urlPatterns={"/Class/ClsGetStu"})
 public class ClsRegGetStu extends HttpServlet {
 
 	public void doGet (
@@ -43,43 +41,30 @@ public class ClsRegGetStu extends HttpServlet {
 
 			try {
 				//ローカル変数の宣言 1
-				String schoolYearStr;
-				int schoolYear;
-				String gradeStr;
-				int grade;
-				String classNoStr;
-				int classNo;
-				String startDateStr;
-				Calendar startDate;
+				String classIdStr = null;
+				int classId = 0;
+				String className = null;
 				ClassCDao clsDao = new ClassCDao();
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				HttpSession session = request.getSession();
 
 				//リクエストパラメータ―の取得 2
-				schoolYearStr = request.getParameter("schoolYear");
-				gradeStr = request.getParameter("grade");
-				classNoStr = request.getParameter("classNo");
-				startDateStr = request.getParameter("startDate");
+				classIdStr = request.getParameter("selectClass");
+				className = request.getParameter("className");
 
-				if(!Objects.isNull(schoolYearStr) && !Objects.isNull(gradeStr) && !Objects.isNull(classNoStr) && !Objects.isNull(startDateStr)){
-					schoolYear = Integer.parseInt(schoolYearStr);
-					grade = Integer.parseInt(gradeStr);
-					classNo = Integer.parseInt(classNoStr);
-					//dateのオブジェクト・・・？
-					startDate = Calendar.getInstance();
-					startDate.setTime(sf.parse(startDateStr));
+				System.out.println(className);
 
+				if(!Objects.isNull(classIdStr)){
+					classId = Integer.parseInt(classIdStr);
 				}else{
-					request.setAttribute("message", "項目は必須入力です");
-					request.getRequestDispatcher("/class/ClsReg.jsp").forward(request, response);
+					request.setAttribute("message", "クラスを選択してください");
+					request.getRequestDispatcher("/class/ClsStuReg.jsp").forward(request, response);
 					return;
 				}
 
 				//DBからデータ取得 3
 				//該当する学生の一覧を取得する
 				ArrayList<StudentExp> stuList;
-				stuList = clsDao.getStudentCandidateList(schoolYear,grade,startDate);
-
+				stuList = clsDao.getStudentCandidateList(classId);
 
 				//ビジネスロジック 4
 				//なし
@@ -87,12 +72,10 @@ public class ClsRegGetStu extends HttpServlet {
 				//なし
 				//レスポンス値をセット 6
 				session.setAttribute("stuList", stuList);
-				request.setAttribute("schoolYear", schoolYear);
-				request.setAttribute("grade", grade);
-				request.setAttribute("classNo", classNo);
-				request.setAttribute("startDate", startDateStr);
+				session.setAttribute("classId", classId);
+
 				//JSPへフォワード 7
-				request.getRequestDispatcher("/class/ClsReg.jsp").forward(request, response);
+				request.getRequestDispatcher("/class/ClsStuReg.jsp").forward(request, response);
 			} catch (Exception e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();

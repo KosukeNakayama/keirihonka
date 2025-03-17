@@ -14,11 +14,11 @@
 <div class="main">
 <H2>クラス登録</H2>
 <!-- コメント追加 -->
-<c:if test="${!Objects.isNull(message)}">
+<c:if test="${!empty message}">
 	<p>${message}</p>
 </c:if>
 
-<form action="ClsRegGetStu">
+<form action="ClsRegExe">
 	<label>年度
 	<select id="schoolYear" name="schoolYear">
 		<c:forEach var="i" begin="2022" end="2026">
@@ -43,8 +43,9 @@
 	<label>クラス開始日
 	<input id="startDate" type="date" name="startDate" value="${startDate}">
 	</label>
-	<input type="submit" value="学生選択">
+	<input type="submit" value="登録">
 </form>
+<%--
 <c:if test="${!Objects.isNull(stuList)}">
 <form id="afterForm" action="ClsRegExe">
 <h4>所属学生</h4>
@@ -57,11 +58,12 @@
 <input type="hidden" id="AfterStartDate" name="startDate" value="">
 <input type="button" id="AfterBtn" value="登録">
 </form>
-</c:if>
+</c:if>--%>
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
+<script src="/keirihonka/static/js/util.js"></script>
+<%-- <script>
 	$(function(){
 	  $("#AfterBtn").click(function(){
 	    $("#AfterSchoolYear").val($("#schoolYear").val());
@@ -71,6 +73,6 @@
 		$("#afterForm").submit();
 	  });
 	});
-</script>
+</script> --%>
 </body>
 </html>

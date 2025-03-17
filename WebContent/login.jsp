@@ -12,7 +12,7 @@
 <header class="navigation">
 	<h1 class="title">経理本科システム</h1>
 </header>
-<c:if test="${!Objects.isNull(message)}">
+<c:if test="${!empty message}">
 	<p>${message}</p>
 </c:if>
 <form method="post" action="/keirihonka/loginExe">

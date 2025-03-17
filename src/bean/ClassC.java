@@ -82,6 +82,9 @@ public class ClassC implements java.io.Serializable {
 	//	2年2組の場合、"2-2"という文字列を返す
 	public String getClassName() {
 		className = String.valueOf(grade) + "-" + String.valueOf(classNo);
+		if(grade == 0 || classNo==0){
+			className = "-";
+		}
 		return className;
 	}
 

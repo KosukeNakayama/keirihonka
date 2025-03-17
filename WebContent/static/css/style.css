@@ -1,4 +1,16 @@
 
+ul{
+  list-style:none;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+td,th{
+	text-align:center;
+}
+
 .title{
   display: block;
   float: left;
@@ -53,17 +65,21 @@
    display: block;
 }
 
+.main-ul{
+	padding-left:0;
+}
+
+.th{
+	width:100px;
+}
+
+.half{
+	width:50px;
+}
+
 /* メインエリアラッパー要素のstyle */
 #wrapper{
   clear: both;
   margin: 0 auto;
   overflow: hidden;
-}
-
-ul{
-  list-style:none;
-}
-
-.main-ul{
-	padding-left:0;
 }

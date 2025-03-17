@@ -15,7 +15,7 @@
 <div class="main">
 <H2>メニュー画面</H2>
 <!-- コメント追加 -->
-<c:if test="${!Objects.isNull(message)}">
+<c:if test="${!empty message}">
 	<p>${message}</p>
 </c:if>
 
@@ -41,7 +41,7 @@
         </H4>
         <ul class="main-ul">
         <li><a href="/keirihonka/Class/ClsReg">クラス登録</a></li>
-        <li><a href="">クラス更新</a></li>
+        <li><a href="/keirihonka/Class/ClsStuReg">クラス学生登録</a></li>
         <li><a href="">クラス履歴確認</a></li>
         <li><a href="">クラス削除</a></li>
         </ul>
