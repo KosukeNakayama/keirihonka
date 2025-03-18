@@ -37,6 +37,7 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 
 <title>出欠入力（当日）</title>
+<link rel="stylesheet" href="/keirihonka/static/css/style.css">
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>
@@ -185,11 +186,12 @@ for (StudentExp stu:stuList) {
 <br><br>
 <a href="/keirihonka/servlet/attend/AttReg">メニューに戻る</a>
 </form>
-
+</div>
 <script src="../../static/js/attConfirm.js"></script>
 <script src="../../static/js/date.js"></script>
 <script src="../../static/js/buttons.js"></script>
 <script src="../../static/js/modal.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/keirihonka/static/js/util.js"></script>
 </body>
 </html>

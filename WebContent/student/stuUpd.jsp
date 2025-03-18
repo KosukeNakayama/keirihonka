@@ -19,9 +19,11 @@
 <p><input type="submit" value="検　索"></p>
 </form>
 
-<a href="/keirihonka/main.jsp">メニュー</a>
+<a href="/keirihonka/main">メニュー</a>
 
 
-
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/keirihonka/static/js/util.js"></script>
 </body>
 </html>

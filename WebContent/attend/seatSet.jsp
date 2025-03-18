@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../../static/css/seatSet.css" type="text/css">
 <link rel="stylesheet" href="../../static/css/buttons.css" type="text/css">
 <title>座席情報設定</title>
+<link rel="stylesheet" href="/keirihonka/static/css/style.css">
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>
@@ -65,6 +66,9 @@
 
 <br><br>
 <a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
-
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/keirihonka/static/js/util.js"></script>
+</body>
 </body>
 </html>

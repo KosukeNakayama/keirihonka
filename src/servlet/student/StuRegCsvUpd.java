@@ -18,8 +18,8 @@ public class StuRegCsvUpd extends HttpServlet {
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
 		// 文字化け対策
-				request.setCharacterEncoding("UTF-8");
-				response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 
 		PrintWriter out=response.getWriter();
 

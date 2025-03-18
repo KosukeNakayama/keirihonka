@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Include Sample</title>
+<title>学生登録(CSV)</title>
+<link rel="stylesheet" href="/keirihonka/static/css/style.css">
 </head>
 <body>
 <%@include file="../util/frame.jsp"%>
@@ -23,8 +24,10 @@
 
 </form>
 
-<a href="">メニュー</a>
+<a href="/keirihonka/main">メニュー</a>
 
-
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/keirihonka/static/js/util.js"></script>
 </body>
 </html>

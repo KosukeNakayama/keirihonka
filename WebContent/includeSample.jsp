@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Include Sample</title>
+<link rel="stylesheet" href="/keirihonka/static/css/style.css">
 </head>
 <body>
 <%@include file="util/frame.jsp"%>

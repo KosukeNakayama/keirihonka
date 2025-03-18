@@ -29,10 +29,8 @@
           学生管理
         </H4>
         <ul class="main-ul">
-        <li><a href="">学生登録</a></li>
-        <li><a href="">学生更新</a></li>
-        <li><a href="">学生在籍管理</a></li>
-        <li><a href="">名簿出力</a></li>
+        <li><a href="/keirihonka/stureg">学生登録</a></li>
+        <li><a href="/keirihonka/stuUpd.jsp">学生更新</a></li>
 		</ul>
 	</div>
 	<div class="list-mid">
