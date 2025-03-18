@@ -12,7 +12,8 @@
 <body>
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
-
+<!-- メインエリア -->
+<div class="main">
 <form action="/keirihonka/student/sturegcsvupd" method="post">
 <!-- 登録人数を送信 -->
 <input type="hidden" name="Count" value="${stuList.size()}">
@@ -33,6 +34,9 @@
 </form>
 
 <a href="/keirihonka/main">メニュー</a>
+
+</div>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="/keirihonka/static/js/util.js"></script>
 </body>
