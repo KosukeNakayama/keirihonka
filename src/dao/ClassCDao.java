@@ -63,12 +63,9 @@ public class ClassCDao extends Dao{
 			+ "WHERE STUDENT.ENROLLMENT_YEAR = ? - ? +1"
 			+ " AND STUDENT.GRADUATION_DAY IS NULL"
 			+ " AND STUDENT.WITHDRAWAL_DAY IS NULL"
-			+ " AND CLASSHISTORY.CLASS_ID <> ?"
-			+ " AND CLASSHISTORY.END_DATE IS NULL"
 			+ " ORDER BY STUDENT.STUDENT_ID");
 		st.setInt(1, schoolYear);
 		st.setInt(2, grade);
-		st.setInt(3, classId);
 
 		rs=st.executeQuery();
 		while(rs.next()){

@@ -28,7 +28,7 @@ public class SeatSetDsp extends HttpServlet {
 			request.getRequestDispatcher("/attend/seatSet.jsp").forward(request, response);
 		}
 
-		//ヘッダー部登録（bean化した府が良い？）
+		//ヘッダー部登録（bean化した府が良い？）⇐ClassCBeanを使ってください
 		SeatHeader sh = new SeatHeader();
 		sh.setClassName(className);
 		sh.setSeatRow(seatRow);
