@@ -186,8 +186,9 @@ public class ClassCDao extends Dao{
 			}
 			SQL += ")";
 			st = con.prepareStatement(SQL);
-			System.out.println(st);
-			st.setDate(1,new Date(dayOfChange.getTime().getTime()));
+			java.util.Date date = dayOfChange.getTime();
+			date.setDate(-1);
+			st.setDate(1,new Date(date.getTime()));
 			for(int i=0;i<stuIds.length;i++){
 				st.setString(i+2,stuIds[i]);
 			}
@@ -235,5 +236,71 @@ public class ClassCDao extends Dao{
 		cls.setClassNo(rs.getInt("class_no"));
 		cls.setStartDate(rs.getDate("start_date"));
 		return cls;
+	}
+
+	public void DeleteClass(int classId,Calendar endDate) throws Exception {
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+				"UPDATE CLASS SET END_DATE = ? WHERE CLASS_ID = ?");
+		st.setDate(1, new Date(endDate.getTime().getTime()));
+		st.setInt(2, classId);
+		st.execute();
+		return;
+	}
+
+	public int getNum(int classId) throws Exception {
+		// クラスに所属している学生がクラスの削除日以降に所属するクラスの登録がされているかチェック
+		// 戻り値はクラス履歴上、学生の所属終了日に値が入っていない数
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+				"SELECT COUNT(STUDENT_ID) as count FROM CLASSHISTORY WHERE CLASS_ID = ? AND END_DATE IS NULL");
+		st.setInt(1, classId);
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		return rs.getInt("count");
+	}
+
+	public int getNum(int classId,Calendar date) throws Exception {
+		// クラスに所属している学生がクラスの削除日以降に所属するクラスの登録がされているかチェック
+		// 戻り値はクラス履歴上、学生の所属終了日に値が入っていない数
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+				"SELECT COUNT(STUDENT_ID) as count FROM CLASSHISTORY WHERE CLASS_ID = ? AND END_DATE < ?");
+		st.setInt(1, classId);
+		st.setDate(2, new Date(date.getTime().getTime()));
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		return rs.getInt("count");
+	}
+
+	public ClassC getClassById(int classId) throws Exception {
+		// クラス１個分の情報取得
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+				"SELECT * FROM CLASS WHERE CLASS_ID = ?");
+		st.setInt(1, classId);
+		ResultSet rs=st.executeQuery();
+		rs.next();
+		ClassC cls = new ClassC();
+		cls.setClassId(rs.getInt("CLASS_ID"));
+		cls.setClassNo(rs.getInt("CLASS_NO"));
+		cls.setGrade(rs.getInt("grade"));
+		cls.setSchoolYear(rs.getInt("SCHOOL_YEAR"));
+		cls.setStartDate(rs.getDate("START_DATE"));
+		return cls;
+
+	}
+
+	public void updCls(int classId, int schoolYear, int grade, int classNo, Calendar startDate) throws Exception {
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+				"UPDATE CLASS SET SCHOOL_YEAR = ?,GRADE = ?,CLASS_NO = ?,START_DATE = ? WHERE CLASS_ID = ?");
+		st.setInt(1, schoolYear);
+		st.setInt(2, grade);
+		st.setInt(3, classNo);
+		st.setDate(4, new Date(startDate.getTime().getTime()));
+		st.setInt(5, classId);
+		st.execute();
+
 	}
 }

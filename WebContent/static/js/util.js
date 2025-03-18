@@ -31,4 +31,31 @@ $(function(){
 		}
 	});
 
+
 });
+
+//読み込み時、ポップアップの判定
+$(document).ready(()=>{
+	if($("#isPopup").val()){
+		showPopup();
+	}
+});
+
+//ポップアップイン
+function showPopup() {
+    $("#modal")[0].style.display = 'block';
+    $("#popup")[0].style.display = 'block';
+}
+
+//ポップアップアウト
+function hidePopup() {
+    $("#modal")[0].style.display = 'none';
+    $("#popup")[0].style.display = 'none';
+    $("#studentId").val($("input[name='stuIds']:checked").val());
+}
+
+window.addEventListener('click', function(event) {
+	  if (event.target === document.getElementById('modal')) {
+	    hidePopup();
+	  }
+	});

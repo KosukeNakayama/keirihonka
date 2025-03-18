@@ -27,7 +27,7 @@
         <li><a href="/keirihonka/Class/ClsReg">クラス登録</a></li>
         <li><a href="/keirihonka/Class/ClsStuReg">クラス学生登録</a></li>
         <li><a href="">クラス履歴確認</a></li>
-        <li><a href="">クラス削除</a></li>
+        <li><a href="/keirihonka/Class/ClsDle">クラス削除</a></li>
         </ul>
         </div>
 	</div>

@@ -30,9 +30,17 @@ public class Checker {
 
 	public static boolean isWithinSchoolYear(int schoolYear,Calendar date){
 		Calendar startDate = Calendar.getInstance();
-		startDate.set(schoolYear, 3, 31);
+		startDate.set(schoolYear, 2, 31);
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(schoolYear+1, 4, 1);
+		endDate.set(schoolYear+1, 3, 1);
+//		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+//
+//		System.out.println(date.after(startDate));
+//
+//		System.out.println(sf.format(date.getTime()));
+//
+//		System.out.println(sf.format(startDate.getTime()));
+//		System.out.println(sf.format(endDate.getTime()));
 
 		if(date.after(startDate) && date.before(endDate)){
 			return true;
@@ -43,9 +51,9 @@ public class Checker {
 
 	public static boolean isWithinSchoolYearAndBeforeClassDate(ClassC cls,Calendar date){
 		Calendar startDate = Calendar.getInstance();
-		startDate.set(cls.getSchoolYear(), 3, 31);
+		startDate.set(cls.getSchoolYear(), 2, 31);
 		Calendar endDate = Calendar.getInstance();
-		endDate.set(cls.getSchoolYear()+1, 4, 1);
+		endDate.set(cls.getSchoolYear()+1, 3, 1);
 		Calendar clsStartDate = Calendar.getInstance();
 		Date dateU = cls.getStartDate();
 		dateU.setDate(-1);

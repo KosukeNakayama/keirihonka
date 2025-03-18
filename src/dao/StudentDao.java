@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.ClassC;
 import bean.Student;
+import bean.StudentExp;
 
 public class StudentDao extends Dao{
 
@@ -70,18 +72,21 @@ public class StudentDao extends Dao{
 
 		Connection con=getConnection();
 		PreparedStatement st=con.prepareStatement(
-			"select * from student where name like ?");
-		st.setString(1, student_id);
+			"select * from student where student_name like ?");
+		st.setString(1, "%"+student_id+"%");
+		System.out.println(st);
 	    ResultSet rs = st.executeQuery();
 
-		Student p=new Student();
-		p.setStudentId(rs.getString("student_id"));
-		p.setStudentName(rs.getString("student_name"));
-		p.setEnrollmentYear(rs.getInt("enrollment_year"));
-		p.setCourseId(rs.getInt("course_id"));
-		p.setGraduationDay(rs.getDate("graduation_day"));
-		p.setWithdrawalDay(rs.getDate("withdrawl_day"));
-		list.add(p);
+	    while(rs.next()){
+	    	Student p=new Student();
+			p.setStudentId(rs.getString("student_id"));
+			p.setStudentName(rs.getString("student_name"));
+			p.setEnrollmentYear(rs.getInt("enrollment_year"));
+			p.setCourseId(rs.getInt("course_id"));
+			p.setGraduationDay(rs.getDate("graduation_day"));
+			p.setWithdrawalDay(rs.getDate("withdrawal_day"));
+			list.add(p);
+	    }
 
 		st.close();
 		con.close();
@@ -89,5 +94,63 @@ public class StudentDao extends Dao{
 		return list;
 	}
 
+	//学生検索　学生番号
+	public Student getStudent(String student_id) throws Exception {
+
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+			"select * from student where STUDENT_ID = ?");
+		st.setString(1, student_id);
+	    ResultSet rs = st.executeQuery();
+	    rs.next();
+
+		Student p=new Student();
+		p.setStudentId(rs.getString("student_id"));
+		p.setStudentName(rs.getString("student_name"));
+		p.setEnrollmentYear(rs.getInt("enrollment_year"));
+		p.setCourseId(rs.getInt("course_id"));
+		p.setGraduationDay(rs.getDate("graduation_day"));
+		p.setWithdrawalDay(rs.getDate("withdrawal_day"));
+
+		st.close();
+		con.close();
+
+		return p;
+	}
+
+	//学生検索　学生名
+		public ArrayList<StudentExp> searchByName(String student_id) throws Exception {
+			ArrayList<StudentExp> list =new ArrayList<>();
+
+			Connection con=getConnection();
+			PreparedStatement st=con.prepareStatement(
+				"select * from student "
+				+ "LEFT OUTER JOIN CLASSHISTORY ON STUDENT.STUDENT_ID = CLASSHISTORY.STUDENT_ID "
+				+ "LEFT OUTER JOIN CLASS ON CLASSHISTORY.CLASS_ID = CLASS.CLASS_ID"
+				+ " where student_name like ?"
+				+ " AND CLASSHISTORY.END_DATE IS NULL");
+			st.setString(1, "%"+student_id+"%");
+		    ResultSet rs = st.executeQuery();
+
+		    while(rs.next()){
+		    	StudentExp p=new StudentExp();
+				p.setStudentId(rs.getString("student_id"));
+				p.setStudentName(rs.getString("student_name"));
+				p.setEnrollmentYear(rs.getInt("enrollment_year"));
+				p.setCourseId(rs.getInt("course_id"));
+				p.setGraduationDay(rs.getDate("graduation_day"));
+				p.setWithdrawalDay(rs.getDate("withdrawal_day"));
+				ClassC cls = new ClassC();
+				cls.setGrade(rs.getInt("grade"));
+				cls.setClassNo(rs.getInt("CLASS_NO"));
+				p.setClassC(cls);
+				list.add(p);
+		    }
+
+			st.close();
+			con.close();
+
+			return list;
+		}
 
 }
