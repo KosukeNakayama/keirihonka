@@ -14,7 +14,7 @@
 
 <a href="/keirihonka/stureg">学生登録</a><br>
 
-<a href="">メニュー</a>
+<a href="/keirihonka/main.jsp">メニュー</a>
 
 
 </body>

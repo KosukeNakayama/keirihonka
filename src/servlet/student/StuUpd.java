@@ -1,7 +1,6 @@
 package servlet.student;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Student;
 import dao.StudentDao;
 
-@WebServlet(urlPatterns={"/stuupd"})
+@WebServlet(urlPatterns={"/student/stuupd"})
 public class StuUpd extends HttpServlet {
 	public void doPost (
 		HttpServletRequest request, HttpServletResponse response
@@ -21,15 +20,15 @@ public class StuUpd extends HttpServlet {
 		String studentId=request.getParameter("studentId");
 
 		StudentDao dao = new StudentDao();
-		List<Student> stuUpdList = null;
+		Student stuUpdList = null;
 		try {
-			stuUpdList = dao.searchById(studentId);
+			stuUpdList = dao.getStudent(studentId);
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
-		request.setAttribute("stuUpdList", stuUpdList);
+		request.setAttribute("student", stuUpdList);
 
 		request.getRequestDispatcher("stuUpdExe.jsp")
 		.forward(request, response);

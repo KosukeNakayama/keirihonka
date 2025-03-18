@@ -47,14 +47,6 @@
         <li><a href="/keirihonka/Class/ClsDle">クラス削除</a></li>
         </ul>
 	</div>
-	<div class="list-right">
-		<H4 class="menu-item">
-			休日設定
-		</H4>
-        <ul class="main-ul">
-		<li><a href="">休日設定</a></li>
-		</ul>
-	</div>
 </div>
 </c:if>
 
@@ -66,7 +58,6 @@
 		</H4>
         <ul class="main-ul">
 		<li><a href="/keirihonka/servlet/attend/AttReg">出欠入力(当日)</a></li>
-		<li><a href="">出欠更新</a></li>
 		<li><a href="/keirihonka/servlet/attend/SeatSet">座席情報設定</a></li>
 		</ul>
 	</div>
@@ -77,7 +68,6 @@
 		<ul class="main-ul">
 		<li><a href="/keirihonka/score/ScoReg">成績入力・更新</a></li>
 		<li><a href="/keirihonka/score/scoRegCsv.jsp">成績入力（CSVファイル）</a></li>
-		<li><a href="">成績出力（未実装）</a></li>
 		<li><a href="/keirihonka/score/scoCnf.jsp">個人成績出力</a></li>
 		</ul>
 	</div>

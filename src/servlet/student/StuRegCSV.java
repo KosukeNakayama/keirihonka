@@ -40,7 +40,7 @@ public class StuRegCSV extends HttpServlet {
 		BufferedReader br = null;
 		// csv読み込み
 		InputStream is = csv.getInputStream();
-		InputStreamReader isr = new InputStreamReader(is);
+		InputStreamReader isr = new InputStreamReader(is,"Shift-JIS");
 		br = new BufferedReader(isr);
 		String line;
 		ArrayList<Student> stuList = new ArrayList();
@@ -65,7 +65,7 @@ public class StuRegCSV extends HttpServlet {
 		}
 
 		//listの中にcsvに記入されていた学生の情報が詰まっている
-		request.setAttribute("stuCsvList", stuList);
+		request.setAttribute("stuList", stuList);
 
 		//jsp
 		request.getRequestDispatcher("stuCsvList.jsp")

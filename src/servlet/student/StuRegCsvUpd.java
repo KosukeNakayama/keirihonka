@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Student;
 import dao.StudentDao;
 
-@WebServlet(urlPatterns={"/sturegcsvupd"})
+@WebServlet(urlPatterns={"/student/sturegcsvupd"})
 public class StuRegCsvUpd extends HttpServlet {
 	public void doPost (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
+		// 文字化け対策
+				request.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html;charset=UTF-8");
+
 		PrintWriter out=response.getWriter();
 
         // 登録人数を取得

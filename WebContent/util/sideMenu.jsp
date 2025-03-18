@@ -10,8 +10,8 @@
         </div>
         <div class="content">
         <ul>
-	        <li><a href="">学生登録</a></li>
-	        <li><a href="">学生更新</a></li>
+	        <li><a href="/keirihonka/stureg">学生登録</a></li>
+	        <li><a href="/keirihonka/stuupd">学生更新</a></li>
 	        <li><a href="">学生在籍管理</a></li>
 	        <li><a href="">名簿出力</a></li>
         </ul>
@@ -25,8 +25,9 @@
         <div class="content">
         <ul>
         <li><a href="/keirihonka/Class/ClsReg">クラス登録</a></li>
+        <li><a href="/keirihonka/Class/ClsUpd">クラス変更</a></li>
         <li><a href="/keirihonka/Class/ClsStuReg">クラス学生登録</a></li>
-        <li><a href="">クラス履歴確認</a></li>
+        <li><a href="/keirihonka/Class/ClsHst">クラス履歴確認</a></li>
         <li><a href="/keirihonka/Class/ClsDle">クラス削除</a></li>
         </ul>
         </div>

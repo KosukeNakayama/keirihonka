@@ -19,7 +19,7 @@
 <p><input type="submit" value="検　索"></p>
 </form>
 
-<a href="">メニュー</a>
+<a href="/keirihonka/main.jsp">メニュー</a>
 
 
 

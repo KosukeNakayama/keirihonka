@@ -52,6 +52,21 @@ public class StudentDao extends Dao{
 		return line;
 	}
 
+	//学生登録
+	public int update(Student student) throws Exception {
+		Connection con=getConnection();
+		PreparedStatement st=con.prepareStatement(
+			"UPDATE student set STUDENT_NAME = ? WHERE STUDENT_ID = ?");
+		st.setString(1, student.getStudentName());
+		st.setString(2, student.getStudentId());
+		System.out.println(st);
+
+		int line=st.executeUpdate();
+		st.close();
+		con.close();
+		return line;
+	}
+
 	//学番の最大値の取得
 	public int getStudentMaxID() throws Exception {
 		Connection con=getConnection();
