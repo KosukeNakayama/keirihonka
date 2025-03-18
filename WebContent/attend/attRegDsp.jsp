@@ -43,7 +43,8 @@ Map<String, String>memoMap = new HashMap<String, String>();
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
-
+<!-- メインエリア -->
+<div class="main">
 <form method="POST" action="AttRegExe"  name="attEntryForm"  onSubmit="checkEntry()">
 
 <!-- Attributeから取得 -->
@@ -186,6 +187,7 @@ for (StudentExp stu:stuList) {
 <br><br>
 <a href="/keirihonka/servlet/attend/AttReg">メニューに戻る</a>
 </form>
+</div>
 </div>
 <script src="../../static/js/attConfirm.js"></script>
 <script src="../../static/js/date.js"></script>

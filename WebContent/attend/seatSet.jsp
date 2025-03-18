@@ -17,6 +17,8 @@
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
+<!-- メインエリア -->
+<div class="main">
 <form method="POST" action="SeatSetDsp">
 
 <!-- DBから取得 -->
@@ -67,8 +69,8 @@
 <br><br>
 <a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
 </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="/keirihonka/static/js/util.js"></script>
-</body>
 </body>
 </html>

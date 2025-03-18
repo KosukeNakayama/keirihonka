@@ -16,12 +16,13 @@
 <c:if test="${!empty message}">
 	<p>${message}</p>
 </c:if>
+<div id="wrapper">
 <form method="post" action="/keirihonka/loginExe">
 	<input type="text" name="id" placeholder="Userid"><br>
 	<input type="password" name="pw"  placeholder="Password"><br>
 	<button type="submit">Login</button>
 </form>
-
+</div>
 </body>
 </html>
 

@@ -33,7 +33,8 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <%@include file="../util/frame.jsp"%>
 <!-- ここから下に各画面の要素を足していく -->
 <!-- コメント追加 -->
-
+<!-- メインエリア -->
+<div class="main">
 
 <form method="POST" action="SeatSetExe"  name="seatEntryForm"  onSubmit="checkEntry()">
 
@@ -133,6 +134,7 @@ Map<String, String>studentsMap = new HashMap<String, String>();
 <br>
 <a href="/keirihonka/servlet/attend/SeatSet">メニューに戻る</a>
 </form>
+</div>
 </div>
 <script src="../../static/js/seatConfirm.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

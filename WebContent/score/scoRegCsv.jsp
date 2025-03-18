@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../includeSample.jsp"%>
 <%@page import="bean.*,java.util.List"%>
-
-<div>
+<!-- メインエリア -->
+<div class="main">
 	<h2>アップロードする成績ファイルを選択してください。</h2>
 
 	<!-- ファイルをアップロードするフォーム -->
@@ -59,6 +59,7 @@
 				}
 			%></tbody>
 	</table>
+</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="/keirihonka/static/js/util.js"></script>

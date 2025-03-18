@@ -11,7 +11,7 @@
         <div class="content">
         <ul>
 	        <li><a href="/keirihonka/stureg">学生登録</a></li>
-	        <li><a href="/keirihonka/stuUpd.jsp">学生更新</a></li>
+	        <li><a href="/keirihonka/student/stuUpd.jsp">学生更新</a></li>
         </ul>
         </div>
 	</div>
